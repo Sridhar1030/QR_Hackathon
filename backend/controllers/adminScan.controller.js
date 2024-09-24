@@ -4,6 +4,7 @@ import { User } from "../models/user.model.js";
 
 dotenv.config();
 
+// Function to determine the current meal time based on time of the day
 const getCurrentMealTime = () => {
 	const now = new Date();
 	const currentHour = now.getHours();
@@ -26,7 +27,7 @@ const getCurrentMealTime = () => {
 	} else if (currentTime >= dinnerStart && currentTime < dinnerEnd) {
 		return "dinner";
 	}
-	return "lunch   "; //for testing warna return null
+	return "breakfast1"; // For testing purposes warna null aega
 };
 
 export const adminScan = async (req, res) => {
@@ -43,32 +44,39 @@ export const adminScan = async (req, res) => {
 				return res.status(404).json({ message: "User not found." });
 			}
 
+			if (!user.meals || typeof user.meals !== 'object') {
+				user.meals = {
+					breakfast1: false,
+					lunch: false,
+					dinner: false,
+				};
+			}
+
 			const mealTime = getCurrentMealTime();
 
 			if (!mealTime) {
 				return res.status(400).json({ message: "Outside meal time." });
 			}
 
+			console.log("Meals:", user.meals);
+			console.log("Current mealTime:", mealTime);
+
 			const mealStatus = user.meals[mealTime];
-			if (mealStatus) {
-				return res
-					.status(400)
-					.json({
-						message: `User has already scanned for ${mealTime}.`,
-					});
+            console.log(mealStatus)
+			if (mealStatus === true) {
+				return res.status(400).json({
+					message: `User has already scanned for ${mealTime}.`,
+				});
 			}
 
-			// Mark the corresponding meal as scanned
 			user.meals[mealTime] = true;
 			await user.save();
 
 			const username = user.username;
-			return res
-				.status(200)
-				.json({
-					message: `Meal scanned successfully for ${username}.`,
-					mealTime,
-				});
+			return res.status(200).json({
+				message: `Meal scanned successfully for ${username}.`,
+				mealTime,
+			});
 		} catch (error) {
 			console.error(error);
 			return res.status(500).json({ message: "Server error." });
