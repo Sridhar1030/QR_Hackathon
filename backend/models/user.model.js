@@ -13,37 +13,29 @@ const userSchema = new mongoose.Schema(
 		},
 		email: {
 			type: String,
-			required: true, // No need for array here
+			required: true,
 			unique: true,
 			trim: true,
 			lowercase: true,
 			index: true,
 		},
-		qrCode: {
-			type: String,
-			required: true,
-		},
 		password: {
 			type: String,
 			required: true,
 		},
+		qrCode: {
+			type: String,
+			required: true,
+		},
+		refreshToken: {
+			// Added refreshToken field
+			type: String,
+		},
 		meals: {
-			breakfast1: {
-				type: Boolean,
-				default: false,
-			},
-			breakfast2: {
-				type: Boolean,
-				default: false,
-			},
-			lunch: {
-				type: Boolean,
-				default: false,
-			},
-			dinner: {
-				type: Boolean,
-				default: false,
-			},
+			breakfast1: { type: Boolean, default: false },
+			breakfast2: { type: Boolean, default: false },
+			lunch: { type: Boolean, default: false },
+			dinner: { type: Boolean, default: false },
 		},
 	},
 	{
@@ -58,9 +50,9 @@ userSchema.pre("save", function (next) {
 	next();
 });
 
-// Method to check password
-userSchema.methods.checkPassword = function (password) {
-	return bcrypt.compareSync(password, this.password);
+// Method to check password (async)
+userSchema.methods.checkPassword = async function (password) {
+	return await bcrypt.compare(password, this.password);
 };
 
 // Generate access token

@@ -6,7 +6,7 @@ import { adminScan } from "../controllers/adminScan.controller.js";
 const userRoutes = Router();
 
 // Define the login route
-userRoutes.post("/signup", signUpUser);
+// userRoutes.post("/signup", signUpUser);
 userRoutes.post("/login", loginUser);
 
 

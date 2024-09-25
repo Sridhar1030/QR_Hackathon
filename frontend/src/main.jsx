@@ -10,6 +10,7 @@ import Layout from "./Layout.jsx";
 import Login from "./components/Auth/Login.jsx";
 import App from "./App.jsx";
 import "./index.css";
+import Homepage from "./components/Home/Homepage.jsx";
 import Admin from "./Pages/Admin.jsx";
 
 const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         <>
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Login />} />
+      <Route path="homepage" element={<Homepage />} />
             <Route
                 path="*"
                 element={
