@@ -55,6 +55,14 @@ export const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 	console.log(req.body);
 
+
+	const adminEmail = process.env.Admin_Email.split(",");
+    if (adminEmail.includes(email) && password === process.env.ADMIN_PASSWORD) {
+        return res
+            .status(200)
+            .json({ message: "Admin login successful", role: "admin", email });
+    }
+
 	try {
 		const user = await User.findOne({ email });
 		if (!user) {
@@ -78,6 +86,7 @@ export const loginUser = async (req, res) => {
 			user: { id: user._id, username: user.username },
 			accessToken,
 			refreshToken,
+			role: "user",
 		});
 	} catch (error) {
 		console.error("Error logging in user:", error); // Log detailed error

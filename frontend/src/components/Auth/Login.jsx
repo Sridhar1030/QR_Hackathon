@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,6 +11,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        localStorage.clear();
         try {
             const response = await axios.post(
                 "http://localhost:3000/api/users/login",
@@ -29,7 +29,7 @@ const Login = () => {
             } else {
                 console.log("user");
                 localStorage.setItem("user", JSON.stringify(response.data));
-                navigate("/"); // Use navigate function to route
+                navigate("/homepage"); // Use navigate function to route
             }
         } catch (err) {
             console.error("Error:", err);
