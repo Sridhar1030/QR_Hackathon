@@ -1,50 +1,46 @@
-// controllers/admin.controller.js
 import dotenv from "dotenv";
 import { User } from "../models/user.model.js";
 
 dotenv.config();
 
-// Function to determine the current meal time based on time of the day
-const getCurrentMealTime = () => {
-	const now = new Date();
-	const currentHour = now.getHours();
-	const currentMinute = now.getMinutes();
-	const currentTime = currentHour * 60 + currentMinute; // Convert time to minutes for easier comparison
+// // Function to determine the current meal time based on time of the day
+// const getCurrentMealTime = () => {
+// 	const now = new Date();
+// 	const currentHour = now.getHours();
+// 	const currentMinute = now.getMinutes();
+// 	const currentTime = currentHour * 60 + currentMinute; // Convert time to minutes for easier comparison
 
-	// Define meal time ranges in minutes
-	const breakfast1Start = 10 * 60; // 10:00 AM
-	const breakfast1End = 11 * 60 + 30; // 11:30 AM
-	const lunchStart = 13 * 60; // 1:00 PM
-	const lunchEnd = 15 * 60; // 3:00 PM
-	const dinnerStart = 21 * 60; // 9:00 PM
-	const dinnerEnd = 23 * 60; // 11:00 PM
+// 	// Define meal time ranges in minutes
+// 	const breakfast1Start = 10 * 60; // 10:00 AM
+// 	const breakfast1End = 11 * 60 + 30; // 11:30 AM
+// 	const lunchStart = 13 * 60; // 1:00 PM
+// 	const lunchEnd = 15 * 60; // 3:00 PM
+// 	const dinnerStart = 21 * 60; // 9:00 PM
+// 	const dinnerEnd = 23 * 60; // 11:00 PM
 
-	// Check the current time against meal times
-	if (currentTime >= breakfast1Start && currentTime < breakfast1End) {
-		return "breakfast1";
-	} else if (currentTime >= lunchStart && currentTime < lunchEnd) {
-		return "lunch";
-	} else if (currentTime >= dinnerStart && currentTime < dinnerEnd) {
-		return "dinner";
-	}
-	return "breakfast1"; // For testing purposes warna null aega
-};
+// 	// Check the current time against meal times
+// 	if (currentTime >= breakfast1Start && currentTime < breakfast1End) {
+// 		return "breakfast1";
+// 	} else if (currentTime >= lunchStart && currentTime < lunchEnd) {
+// 		return "lunch";
+// 	} else if (currentTime >= dinnerStart && currentTime < dinnerEnd) {
+// 		return "dinner";
+// 	}
+// 	return "breakfast2"; // For testing purposes warna null aega
+// };
 
 export const adminScan = async (req, res) => {
-	const { email, password, qrCode } = req.body;
+	const { adminEmail, user_email, meal } = req.body;
 
-	if (
-		email === process.env.Admin_Email &&
-		password === process.env.ADMIN_PASSWORD
-	) {
+	if (adminEmail === process.env.Admin_Email) {
 		try {
-			const user = await User.findOne({ qrCode });
+			const user = await User.findOne({ email: user_email });
 
 			if (!user) {
 				return res.status(404).json({ message: "User not found." });
 			}
 
-			if (!user.meals || typeof user.meals !== 'object') {
+			if (!user.meals || typeof user.meals !== "object") {
 				user.meals = {
 					breakfast1: false,
 					lunch: false,
@@ -52,30 +48,24 @@ export const adminScan = async (req, res) => {
 				};
 			}
 
-			const mealTime = getCurrentMealTime();
-
-			if (!mealTime) {
-				return res.status(400).json({ message: "Outside meal time." });
+			const validMeals = ["breakfast1", "lunch", "dinner", "breakfast2"];
+			if (!validMeals.includes(meal)) {
+				return res.status(400).json({ message: "Invalid meal type." });
 			}
 
-			console.log("Meals:", user.meals);
-			console.log("Current mealTime:", mealTime);
-
-			const mealStatus = user.meals[mealTime];
-            console.log(mealStatus)
-			if (mealStatus === true) {
+			if (user.meals[meal] === true) {
 				return res.status(400).json({
-					message: `User has already scanned for ${mealTime}.`,
+					message: `User has already scanned for ${meal}.`,
 				});
 			}
 
-			user.meals[mealTime] = true;
+			user.meals[meal] = true;
 			await user.save();
 
 			const username = user.username;
 			return res.status(200).json({
 				message: `Meal scanned successfully for ${username}.`,
-				mealTime,
+				meal,
 			});
 		} catch (error) {
 			console.error(error);
