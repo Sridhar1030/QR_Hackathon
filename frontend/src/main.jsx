@@ -14,7 +14,8 @@ import Admin from "./Pages/Admin.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
+        <>
+          <Route path="/" element={<Layout />}>
             <Route path="" element={<Login />} />
             <Route
                 path="*"
@@ -24,8 +25,9 @@ const router = createBrowserRouter(
                     </h1>
                 }
             />
-            <Route path="/admin" element={<Admin />} />
         </Route>
+        <Route path="/admin" element={<Admin />} />
+        </>
     )
 );
 
