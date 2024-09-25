@@ -36,6 +36,17 @@ export const signUpUser = async (req, res) => {
 export const loginUser = async (req, res) => {
 	const {  email, password } = req.body;
 	console.log(req.body)
+
+
+	const adminEmail = process.env.Admin_Email.split(",");
+
+    if (adminEmail.includes(email) && password === process.env.ADMIN_PASSWORD) {
+        return res
+            .status(200)
+            .json({ message: "Admin login successful", role: "admin", email });
+    }
+
+
 	try {
 		const user = await User.findOne({ email });
 		if (!user) {
@@ -49,7 +60,7 @@ export const loginUser = async (req, res) => {
 				.status(401)
 				.json({ message: "Invalid email or password" });
 		}
-		return res.status(200).json({ message: "User logged in successfully!", user: { id: user._id, username: user.username , qrCode:user.qrCode} });
+		return res.status(200).json({ message: "User logged in successfully!", user: { id: user._id, username: user.username , qrCode:user.qrCode} , role: "user" });
 	} catch (error) {
 		res.status(500).json({ message: "Error logging in user.", error });
 	}

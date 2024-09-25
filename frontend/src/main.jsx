@@ -10,17 +10,23 @@ import Layout from "./Layout.jsx";
 import Login from "./components/Auth/Login.jsx";
 import App from "./App.jsx";
 import "./index.css";
+import Admin from "./Pages/Admin.jsx";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route path="" element={<Login />} />
-      <Route
-        path="*"
-        element={<h1 className="text-center text-3xl text-bold">Not Found</h1>}
-      />
-    </Route>
-  )
+    createRoutesFromElements(
+        <Route path="/" element={<Layout />}>
+            <Route path="" element={<Login />} />
+            <Route
+                path="*"
+                element={
+                  <h1 className="text-center text-3xl text-bold">
+                        Not Found
+                    </h1>
+                }
+            />
+            <Route path="/admin" element={<Admin />} />
+        </Route>
+    )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
