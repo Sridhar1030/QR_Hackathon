@@ -15,7 +15,7 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const emailListPath = path.join(process.cwd(), "participants.json"); // Adjust the path as needed
+const emailListPath = path.join(process.cwd(), "participantsGrouped.json"); // Adjust the path as needed
 let participantEmails = [];
 
 // Load the participant emails

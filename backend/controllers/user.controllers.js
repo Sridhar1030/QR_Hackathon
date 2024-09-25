@@ -55,13 +55,12 @@ export const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 	console.log(req.body);
 
-
 	const adminEmail = process.env.Admin_Email.split(",");
-    if (adminEmail.includes(email) && password === process.env.ADMIN_PASSWORD) {
-        return res
-            .status(200)
-            .json({ message: "Admin login successful", role: "admin", email });
-    }
+	if (adminEmail.includes(email) && password === process.env.ADMIN_PASSWORD) {
+		return res
+			.status(200)
+			.json({ message: "Admin login successful", role: "admin", email });
+	}
 
 	try {
 		const user = await User.findOne({ email });
@@ -93,5 +92,26 @@ export const loginUser = async (req, res) => {
 		res.status(500).json({
 			message: "Server error while logging in user.",
 		});
+	}
+};
+
+export const getUser = async (req, res) => {
+	try {
+		const { id } = req.params;
+		console.log(id);
+
+		// Find user by ID
+		const user = await User.findById(id);
+
+		// If user not found
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		// Respond with user data
+		res.json(user);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: "An error occurred", error });
 	}
 };
