@@ -13,6 +13,10 @@ import "./index.css";
 import Homepage from "./components/Home/Homepage.jsx";
 import Admin from "./components/Home/Admin.jsx";
 import QRCodePage from "./components/QrCodeUrl.jsx";
+import Game1 from "./Pages/Game1.jsx";
+import Game2 from "./Pages/Game2.jsx";
+import Game3 from "./Pages/Game3.jsx";
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -31,6 +35,9 @@ const router = createBrowserRouter(
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/qrcode" element={<QRCodePage />} />
+        <Route path="/game1" element={<Game1 />} />
+        <Route path="/game2" element={<Game2 />} />
+        <Route path="/game3" element={<Game3 />} />
         </>
     )
 );

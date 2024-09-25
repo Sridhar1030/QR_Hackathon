@@ -24,7 +24,7 @@ const Homepage = () => {
       setQrCodeUrl(qrCode);
 
       // Navigate to the QRCodePage and pass the generated qrCodeUrl
-      navigate("/qrcode", { state: { qrCodeUrl: qrCode } });
+      navigate("/qrcode", { state: { qrCodeUrl: qrCode , mealType } });
     } catch (error) {
       console.error("Error generating QR code", error);
     }
