@@ -12,6 +12,7 @@ import App from "./App.jsx";
 import "./index.css";
 import Homepage from "./components/Home/Homepage.jsx";
 import Admin from "./components/Home/Admin.jsx";
+import QRCodePage from "./components/QrCodeUrl.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
             />
         </Route>
         <Route path="/admin" element={<Admin />} />
+        <Route path="/qrcode" element={<QRCodePage />} />
         </>
     )
 );
