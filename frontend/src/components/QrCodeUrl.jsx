@@ -4,11 +4,11 @@ import { useLocation, Link } from "react-router-dom";
 const QRCodePage = () => {
     // Use the useLocation hook to access the state (qrCodeUrl)
     const location = useLocation();
-    const { qrCodeUrl } = location.state || {}; // Destructure qrCodeUrl from state
+    const { qrCodeUrl , mealType } = location.state || {}; // Destructure qrCodeUrl from state
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-gray-800">
-            <h1 className="text-white text-3xl mb-8">Your QR Code</h1>
+            <h1 className="text-white text-3xl mb-8">Your QR Code {mealType}</h1>
 
             {qrCodeUrl ? (
                 <img
