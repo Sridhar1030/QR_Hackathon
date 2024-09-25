@@ -3,7 +3,7 @@ import React from "react";
 
 function Game3() {
     return (
-        <div>
+        <div className="w-screen h-screen">
             <Spline scene="https://prod.spline.design/DPQaWbvOb-nRpGV2/scene.splinecode" />
         </div>
     );
