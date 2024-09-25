@@ -32,9 +32,12 @@ dotenv.config();
 export const adminScan = async (req, res) => {
 	const { adminEmail, id, meal } = req.body;
 
+
+	console.log(adminEmail)
+	console.log(process.env.Admin_Email)
 	if (adminEmail === process.env.Admin_Email) {
 		try {
-			const user = await User.findById({ id });
+			const user = await User.findById(id );
 
 			if (!user) {
 				return res.status(404).json({ message: "User not found." });
@@ -50,11 +53,11 @@ export const adminScan = async (req, res) => {
 
 			const validMeals = ["breakfast1", "lunch", "dinner", "breakfast2"];
 			if (!validMeals.includes(meal)) {
-				return res.status(400).json({ message: "Invalid meal type." });
+				return res.status(400).json({ message: "Invalid meal type" });
 			}
 
 			if (user.meals[meal] === true) {
-				return res.status(400).json({
+				return res.status(201).json({
 					message: `User has already scanned for ${meal}.`,
 				});
 			}

@@ -20,7 +20,7 @@ const QRCodePage = () => {
                 <p className="text-white">No QR Code found</p>
             )}
 
-            <Link to="/homepage" className="mt-8 text-xl text-blue-500 underline">
+            <Link to="/home" className="mt-8 text-xl text-blue-500 underline">
                 Go Back to Homepage
             </Link>
         </div>

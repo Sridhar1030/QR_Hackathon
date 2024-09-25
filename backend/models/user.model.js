@@ -23,10 +23,6 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		qrCode: {
-			type: String,
-			required: true,
-		},
 		refreshToken: {
 			// Added refreshToken field
 			type: String,
