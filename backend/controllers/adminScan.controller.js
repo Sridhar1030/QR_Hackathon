@@ -30,11 +30,11 @@ dotenv.config();
 // };
 
 export const adminScan = async (req, res) => {
-	const { adminEmail, user_email, meal } = req.body;
+	const { adminEmail, id, meal } = req.body;
 
 	if (adminEmail === process.env.Admin_Email) {
 		try {
-			const user = await User.findOne({ email: user_email });
+			const user = await User.findById({ id });
 
 			if (!user) {
 				return res.status(404).json({ message: "User not found." });
