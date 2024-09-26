@@ -58,8 +58,30 @@ const Homepage = () => {
   }, [user]); // Dependency array includes `user`, so it will refetch when user changes
 
   return (
-    <div className="md:hidden">
-      <div className="flex flex-col justify-evenly items-center h-screen ">
+    <div className="">
+      <div className="absolute -z-50 h-screen w-screen">
+        <img
+          src="../../public/bgblack.jpg"
+          className="h-full w-full object-cover bg-no-repeat"
+        />
+      </div>
+      <div className="hidden md:flex justify-center items-center mx-auto h-screen ">
+        <div className="w-[80%] rounded-xl p-4 text-center bg-opacity-90 bg-red-300 backdrop-blur-sm">
+          {userData ? (
+            <p className="text-blue-500 text-4xl font-extrabold">
+              Welcome, {userData.username}
+            </p>
+          ) : (
+            <p className="text-blue-500 text-4xl font-extrabold">
+              Welcome, User
+            </p>
+          )}
+          <p className="text-red-500 text-3xl pt-5 font-bold">
+            Unfortunately this website is only for mobile view only
+          </p>
+        </div>
+      </div>
+      <div className="md:hidden flex flex-col justify-evenly items-center h-screen ">
         <div className="border p-3 rounded-xl mix-blend-diff ">
           {/* Conditionally rendering the user's name */}
           {userData ? (
@@ -160,11 +182,10 @@ const Homepage = () => {
         <div className="grid grid-cols-2 gap-8 mb-8">
           <button
             className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${
-              userData?.meals.breakfast1
+            ${userData?.meals.breakfast1
                 ? "border-white opacity-50 hover-scale:95 cursor-not-allowed "
                 : "bg-red-500 border-green-800 outline outline-offset-1 outline-green-500"
-            }`}
+              }`}
             onClick={() => generateQRCode("breakfast1")}
             disabled={userData?.meals.breakfast1} // Disable if breakfast1 is already used
           >
@@ -172,11 +193,10 @@ const Homepage = () => {
           </button>
           <button
             className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${
-              userData?.meals.breakfast2
+            ${userData?.meals.breakfast2
                 ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
                 : "bg-red-500 border-red-800"
-            }`}
+              }`}
             onClick={() => generateQRCode("breakfast2")}
             disabled={userData?.meals.breakfast2} // Disable if breakfast2 is already used
           >
@@ -184,11 +204,10 @@ const Homepage = () => {
           </button>
           <button
             className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${
-              userData?.meals.lunch
+            ${userData?.meals.lunch
                 ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
                 : "bg-red-500 border-red-800"
-            }`}
+              }`}
             onClick={() => generateQRCode("lunch")}
             disabled={userData?.meals.lunch} // Disable if lunch is already used
           >
@@ -196,24 +215,19 @@ const Homepage = () => {
           </button>
           <button
             className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${
-              userData?.meals.dinner
+            ${userData?.meals.dinner
                 ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
                 : "bg-red-500 border-red-800"
-            }`}
+              }`}
             onClick={() => generateQRCode("dinner")}
             disabled={userData?.meals.dinner} // Disable if dinner is already used
           >
             Dinner
           </button>
         </div>
-        <div className="absolute -z-50 h-screen w-screen">
-          <img
-            src="../../public/bgblack.jpg"
-            className="h-full w-full object-cover object-left"
-          />
-        </div>
+
       </div>
+
     </div>
   );
 };
