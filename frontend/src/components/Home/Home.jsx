@@ -31,7 +31,7 @@ const Homepage = () => {
     }
   };
 
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("data");
 
   // Fetch user data when the user changes
   useEffect(() => {

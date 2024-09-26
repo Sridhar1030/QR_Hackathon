@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from "react-router-dom"; // Import createRoutesFromElements
+import {
+    createBrowserRouter,
+    RouterProvider,
+    Route,
+    createRoutesFromElements,
+} from "react-router-dom";
 import Layout from "./Layout.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Admin from "./components/Home/Admin.jsx";
@@ -9,33 +14,79 @@ import Game3 from "./Pages/Game3.jsx";
 import Home from "./components/Home/Home.jsx";
 import QrScannerComponent from "./Pages/QrScanner.jsx";
 import SuccessPage from "../src/Pages/SuccessPage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute component
+import NotFoundPage from "./Pages/NotFoundPage.jsx";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<Layout />}>
-      <Route index element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="/qrcode" element={<QRCodePage />} />
-      <Route path="/game1" element={<Game1 />} />
-      <Route path="/game2" element={<Game2 />} />
-      <Route path="/game3" element={<Game3 />} />
-      <Route path="/scan" element={<QrScannerComponent />} />
-      <Route path="/successPage" element={<SuccessPage />} />
-      <Route
-        path="*"
-        element={
-          <h1 className="text-center text-3xl text-bold">
-            Not Found
-          </h1>
-        }
-      />
-    </Route>
-  )
+    createRoutesFromElements(
+        <Route element={<Layout />}>
+            {/* Public Route */}
+            <Route index element={<Login />} />
+
+            {/* Protected Routes - accessible by both 'user' and 'admin' */}
+            <Route
+                path="/home"
+                element={<ProtectedRoute element={<Home />} />}
+            />
+            <Route
+                path="/qrcode"
+                element={<ProtectedRoute element={<QRCodePage />} />}
+            />
+            <Route
+                path="/game1"
+                element={<ProtectedRoute element={<Game1 />} />}
+            />
+            <Route
+                path="/game2"
+                element={<ProtectedRoute element={<Game2 />} />}
+            />
+            <Route
+                path="/game3"
+                element={<ProtectedRoute element={<Game3 />} />}
+            />
+
+            {/* Admin-only routes */}
+            <Route
+                path="/scan"
+                element={
+                    <ProtectedRoute
+                        element={<QrScannerComponent />}
+                        allowedRoles={["admin"]}
+                    />
+                }
+            />
+            <Route
+                path="/successPage"
+                element={
+                    <ProtectedRoute
+                        element={<SuccessPage />}
+                        allowedRoles={["admin"]}
+                    />
+                }
+            />
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute
+                        element={<Admin />}
+                        allowedRoles={["admin"]}
+                    />
+                }
+            />
+
+            {/* Catch-all for undefined routes */}
+            <Route
+                path="*"
+                element={
+                    <NotFoundPage />
+                }
+            />
+        </Route>
+    )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+    return <RouterProvider router={router} />;
 }
 
 export default App;

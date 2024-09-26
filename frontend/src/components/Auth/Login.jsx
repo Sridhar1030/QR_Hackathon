@@ -24,12 +24,12 @@ const Login = () => {
 
             if (response.data.role === "admin") {
                 console.log("admin");
-                localStorage.setItem("admin", JSON.stringify(response.data));
+                localStorage.setItem("data", JSON.stringify(response.data));
                 navigate("/admin"); // Use navigate function to route
             } else {
                 console.log("user");
-                localStorage.setItem("user", JSON.stringify(response.data));
-                navigate("/homepage"); // Use navigate function to route
+                localStorage.setItem("data", JSON.stringify(response.data));
+                navigate("/home"); // Use navigate function to route
             }
         } catch (err) {
             console.error("Error:", err);
