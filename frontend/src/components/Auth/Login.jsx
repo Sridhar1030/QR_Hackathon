@@ -23,12 +23,15 @@ const Login = () => {
             console.log("Response:", response.data.role);
 
             if (response.data.role === "admin") {
-                console.log("admin");
-                localStorage.setItem("data", JSON.stringify(response.data));
+                localStorage.setItem("data", JSON.stringify(response.data.user._id));
+                localStorage.setItem("role","admin")
                 navigate("/admin"); // Use navigate function to route
             } else {
                 console.log("user");
-                localStorage.setItem("data", JSON.stringify(response.data));
+                console.log(response.data)
+                localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
+                localStorage.setItem("id" , response.data.user._id )
+                localStorage.setItem("role","user")
                 navigate("/home"); // Use navigate function to route
             }
         } catch (err) {

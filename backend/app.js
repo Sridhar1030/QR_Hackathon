@@ -15,22 +15,22 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const emailListPath = path.join(process.cwd(), "participantsGrouped.json"); // Adjust the path as needed
-let participantEmails = [];
+// const emailListPath = path.join(process.cwd(), "participantsGrouped.json"); // Adjust the path as needed
+// let participantEmails = [];
 
-// Load the participant emails
-fs.readFile(emailListPath, "utf8", (err, data) => {
-	if (err) {
-		console.error("Error reading email file:", err);
-		return;
-	}
-	participantEmails = JSON.parse(data).emails;
-});
+// // Load the participant emails
+// fs.readFile(emailListPath, "utf8", (err, data) => {
+// 	if (err) {
+// 		console.error("Error reading email file:", err);
+// 		return;
+// 	}
+// 	participantEmails = JSON.parse(data).emails;
+// });
 
-app.use((req, res, next) => {
-	req.participantEmails = participantEmails;
-	next();
-});
+// app.use((req, res, next) => {
+// 	req.participantEmails = participantEmails;
+// 	next();
+// });
 
 app.get("/", (req, res) => {
 	res.send("API is running...");

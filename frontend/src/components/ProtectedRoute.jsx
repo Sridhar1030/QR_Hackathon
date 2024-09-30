@@ -2,10 +2,9 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ element: Component, allowedRoles }) => {
     
-    const data = JSON.parse(localStorage.getItem('data'));
+    const accessToken =localStorage.getItem('accessToken');
 
-    const accessToken = data?.accessToken; 
-    const userRole = data?.role;
+    const userRole = localStorage.getItem('role');
 
 
     const roles = allowedRoles || ['user', 'admin'];

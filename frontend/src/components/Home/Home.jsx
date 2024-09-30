@@ -1,233 +1,111 @@
 import React, { useEffect, useState } from "react";
-import QRCode from "qrcode";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Homepage = () => {
-  const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [userData, setUserData] = useState(null);
+  const [currentMeal, setCurrentMeal] = useState("");
+  const [error, setError] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
 
-  // Function to generate QR code
-  const generateQRCode = async (mealType) => {
-    if (!userData) {
-      console.error("User data is not loaded yet.");
-      return;
-    }
-
-    const qrCodeData = {
-      userId: userData._id, // Assuming _id is the user ID in the fetched data
-      meal: mealType,
-    };
-
-    try {
-      const qrCode = await QRCode.toDataURL(JSON.stringify(qrCodeData));
-      setQrCodeUrl(qrCode);
-
-      // Navigate to the QRCodePage and pass the generated qrCodeUrl
-      navigate("/qrcode", { state: { qrCodeUrl: qrCode, mealType } });
-    } catch (error) {
-      console.error("Error generating QR code", error);
-    }
-  };
-
-  const user = localStorage.getItem("data");
-
-  // Fetch user data when the user changes
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!user) {
-        console.error("No user ID found in localStorage");
-        return;
-      }
-
-      const userId = JSON.parse(user).user.id;
-      console.log("Fetching user data for ID:", userId);
-
       try {
+        const userId = localStorage.getItem("id");
+        if (!userId) {
+          throw new Error("No user ID found in localStorage");
+        }
+
         const response = await axios.get(
-          `http://localhost:3000/api/users/userDetails/${userId}`
+          `http://localhost:3000/api/users/getUserDetailsById/${userId}`
         );
-        setUserData(response.data);
+        setUserData(response.data.user);
       } catch (error) {
         console.error("Error fetching user data", error);
+        setError("Failed to load user data. Please try logging in again.");
       }
     };
 
     fetchUserData();
-  }, [user]); // Dependency array includes `user`, so it will refetch when user changes
+    updateCurrentMeal();
+  }, []);
+
+  const updateCurrentMeal = () => {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 6 && hour < 10) {
+      setCurrentMeal("Breakfast 1");
+    } else if (hour >= 10 && hour < 12) {
+      setCurrentMeal("Breakfast 2");
+    } else if (hour >= 12 && hour < 15) {
+      setCurrentMeal("Lunch");
+    } else if (hour >= 18 && hour < 21) {
+      setCurrentMeal("Dinner");
+    } else {
+      setCurrentMeal("No meal available");
+    }
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    console.error("Failed to load background image");
+    setImageLoaded(false);
+  };
+
+  if (error) {
+    return (
+      <div className="flex flex-col h-screen bg-gray-100 items-center justify-center p-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold">Error: </strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+        <button 
+          onClick={() => navigate('/login')} 
+          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className="">
-      <div className="absolute -z-50 h-screen w-screen">
+    <div className="flex flex-col h-screen bg-gray-100 relative">
+      <div className="absolute inset-0 -z-10 bg-black"> {/* Fallback background color */}
         <img
-          src="../../public/bgblack.jpg"
-          className="h-full w-full object-cover bg-no-repeat"
+          src="/bgblack.jpg"
+          className={`h-full w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          alt="Background"
+          onLoad={handleImageLoad}
+          onError={handleImageError}
         />
       </div>
-      <div className="hidden md:flex justify-center items-center mx-auto h-screen ">
-        <div className="w-[80%] rounded-xl p-4 text-center bg-opacity-90 bg-red-300 backdrop-blur-sm">
-          {userData ? (
-            <p className="text-blue-500 text-4xl font-extrabold">
-              Welcome, {userData.username}
-            </p>
-          ) : (
-            <p className="text-blue-500 text-4xl font-extrabold">
-              Welcome, User
-            </p>
-          )}
-          <p className="text-red-500 text-3xl pt-5 font-bold">
-            Unfortunately this website is only for mobile view only
-          </p>
+      <div className="flex-1 flex flex-col items-center justify-between py-8 px-4 relative z-10">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-white mb-2">
+            {userData?.teamName || "Team Name"}
+          </h1>
+          <h2 className="text-2xl text-white">
+            {userData?.username || "Member Name"}
+          </h2>
+        </div>
+        <div className="w-full space-y-6">
+          <button className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300">
+            Team Details
+          </button>
+          <button className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300">
+            Personal Details
+          </button>
+          <button className="w-full bg-red-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-red-600 transition duration-300">
+            Food ({currentMeal})
+          </button>
         </div>
       </div>
-      <div className="md:hidden flex flex-col justify-evenly items-center h-screen ">
-        <div className="border p-3 rounded-xl mix-blend-diff ">
-          {/* Conditionally rendering the user's name */}
-          {userData ? (
-            <div className="p-1">
-              <h1 className="text-white  text-4xl text-center ">
-                Welcome, {userData.username}
-              </h1>
-              <p className="text-gray-300">Email: {userData.email}</p>
-              <p className="text-gray-300">Meal Statuses:</p>
-              <ul className="text-gray-300">
-                <li className="flex">
-                  Breakfast 1:{" "}
-                  {userData.meals.breakfast1 ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 stroke-green-500 stroke-1 fill-green-500"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 fill-red-500"
-                      viewBox="0 0 384 512"
-                    >
-                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                  )}
-                </li>
-                <li className="flex">
-                  Breakfast 2:{" "}
-                  {userData.meals.breakfast2 ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 stroke-green-500 stroke-1 fill-green-500"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 fill-red-500"
-                      viewBox="0 0 384 512"
-                    >
-                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                  )}
-                </li>
-                <li className="flex">
-                  Lunch:{" "}
-                  {userData.meals.lunch ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 stroke-green-500 stroke-1 fill-green-500"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 fill-red-500"
-                      viewBox="0 0 384 512"
-                    >
-                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                  )}
-                </li>
-                <li className="flex">
-                  Dinner:{" "}
-                  {userData.meals.dinner ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 stroke-green-500 stroke-1 fill-green-500"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 fill-red-500"
-                      viewBox="0 0 384 512"
-                    >
-                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                  )}
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <p className="text-gray-300">Loading user data...</p>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-8 mb-8">
-          <button
-            className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${userData?.meals.breakfast1
-                ? "border-white opacity-50 hover-scale:95 cursor-not-allowed "
-                : "bg-red-500 border-green-800 outline outline-offset-1 outline-green-500"
-              }`}
-            onClick={() => generateQRCode("breakfast1")}
-            disabled={userData?.meals.breakfast1} // Disable if breakfast1 is already used
-          >
-            Breakfast 1
-          </button>
-          <button
-            className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${userData?.meals.breakfast2
-                ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
-                : "bg-red-500 border-red-800"
-              }`}
-            onClick={() => generateQRCode("breakfast2")}
-            disabled={userData?.meals.breakfast2} // Disable if breakfast2 is already used
-          >
-            Breakfast 2
-          </button>
-          <button
-            className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${userData?.meals.lunch
-                ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
-                : "bg-red-500 border-red-800"
-              }`}
-            onClick={() => generateQRCode("lunch")}
-            disabled={userData?.meals.lunch} // Disable if lunch is already used
-          >
-            Lunch
-          </button>
-          <button
-            className={`text-2xl text-white border-2 p-2 rounded-xl transition 
-            ${userData?.meals.dinner
-                ? "border-white opacity-50 hover-scale:95 cursor-not-allowed"
-                : "bg-red-500 border-red-800"
-              }`}
-            onClick={() => generateQRCode("dinner")}
-            disabled={userData?.meals.dinner} // Disable if dinner is already used
-          >
-            Dinner
-          </button>
-        </div>
-
-      </div>
-
     </div>
   );
 };

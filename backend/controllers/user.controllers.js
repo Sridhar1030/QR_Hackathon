@@ -1,5 +1,8 @@
 import { User } from "../models/user.model.js";
 import QRCode from "qrcode";
+import fs from "fs";
+import path from "path";
+import { json } from "express";
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
 	try {
@@ -24,29 +27,50 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 
 // Controller for signing up a user
 export const signUpUser = async (req, res) => {
-	const { username, email, password } = req.body;
+	const { teamName } = req.body;
 
-	// Access participant emails from the request
-	const participantEmails = req.participantEmails;
-
-	// Check if the email is in the participant email list
-	if (!participantEmails.includes(email)) {
-		return res.status(400).json({
-			message:
-				"Email not verified. Please use a valid participant email.",
-		});
-	}
-
-	const qrCodeData = { username, email };
-	const qrCode = await QRCode.toDataURL(JSON.stringify(qrCodeData));
-
+	const teamsFilePath = path.join(process.cwd(), "./participantsGrouped.json");
+	
 	try {
-		const newUser = new User({ username, email, password, qrCode });
-		await newUser.save();
-		res.status(201).json({ message: "User registered successfully!" });
-	} catch (error) {
-		console.error("Error registering user:", error);
-		res.status(500).json({ message: "Error registering user.", error });
+		// Load the participant emails asynchronously
+		const data = await fs.promises.readFile(teamsFilePath, "utf8");
+		const participants = JSON.parse(data);
+
+		// Ensure the team exists in the file
+		const members = participants[teamName];
+		if (!members) {
+			return res.status(404).json({ message: "Team not found." });
+		}
+
+
+		for (const member of members) {
+			const firstTwo = member.phoneNumber.substring(0, 2);
+			const lastTwo = member.phoneNumber.substring(member.phoneNumber.length - 2);
+			
+			const password = firstTwo + lastTwo;
+			
+			console.log("Generated password:", password);
+			console.log("Phone Number:", member.phoneNumber);
+
+			const newUser = new User({
+				username: member.name,
+				email: member.email,
+				teamName: teamName,
+				phoneNumber: member.phoneNumber,
+				github: member.github,
+				college: member.college,
+				gender: member.gender,
+				password : password,
+			});
+			
+			await newUser.save();
+		}
+
+		return res.status(201).json({ message: "Users created successfully." });
+
+	} catch (err) {
+		console.error("Error reading or processing file:", err);
+		return res.status(500).json({ message: "Internal server error." });
 	}
 };
 
@@ -70,7 +94,7 @@ export const loginUser = async (req, res) => {
 				.json({ message: "Invalid email or password" });
 		}
 
-		const isMatch = await user.checkPassword(password); // Ensure it's async
+		const isMatch = await user.checkPassword(password) // Ensure it's async
 		if (!isMatch) {
 			return res
 				.status(401)
@@ -82,10 +106,9 @@ export const loginUser = async (req, res) => {
 
 		return res.status(200).json({
 			message: "User logged in successfully!",
-			user: { id: user._id, username: user.username },
+			user,
 			accessToken,
 			refreshToken,
-			role: "user",
 		});
 	} catch (error) {
 		console.error("Error logging in user:", error); // Log detailed error
@@ -94,6 +117,28 @@ export const loginUser = async (req, res) => {
 		});
 	}
 };
+
+
+export const getTeamDetailsByTeamName = async (req,res) => {
+	const { teamName } = req.body;
+
+	try {
+	const member = await User.find({teamName})
+
+	if (!member) {
+		return res.status(404).json({ message: "Team not found." });
+	}
+
+	return res
+			.status(200)
+			.json({message: "team member detail fetch" , member })
+	} catch (error) {
+		res.status(500).json({
+			message: "Server error while logging in user.",
+		});
+	}
+
+}
 
 export const getUser = async (req, res) => {
 	try {
@@ -115,3 +160,19 @@ export const getUser = async (req, res) => {
 		res.status(500).json({ message: "An error occurred", error });
 	}
 };
+
+
+export const getUserDetailsById = async (req,res) => {
+	const {_id } = req.params
+
+	try {
+		const user = await User.findById(_id)
+
+		return res
+				.status(200)
+				.json({message: "user Details" , user})
+	} catch (error) {
+		res.status(500).json({ message: "An error occurred", error });
+	}
+
+}

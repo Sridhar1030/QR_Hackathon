@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { User } from "../models/user.model.js";
+import AdminDashboard from "../models/admin.model.js"
 
 dotenv.config();
 
@@ -30,51 +31,106 @@ dotenv.config();
 // };
 
 export const adminScan = async (req, res) => {
-	const { adminEmail, id, meal } = req.body;
+    const { adminEmail, id, meal } = req.body;
 
 
-	console.log(adminEmail)
-	console.log(process.env.Admin_Email)
-	if (adminEmail === process.env.Admin_Email) {
-		try {
-			const user = await User.findById(id );
+    console.log(adminEmail);
+    console.log(process.env.Admin_Email);
+    
+    if (adminEmail === process.env.Admin_Email) {
+        try {
+            const user = await User.findById(id);
 
-			if (!user) {
-				return res.status(404).json({ message: "User not found." });
-			}
+            if (!user) {
+                return res.status(404).json({ message: "User not found." });
+            }
 
-			if (!user.meals || typeof user.meals !== "object") {
-				user.meals = {
-					breakfast1: false,
-					lunch: false,
-					dinner: false,
-				};
-			}
+            if (!user.meals || typeof user.meals !== "object") {
+                user.meals = {
+                    breakfast1: false,
+                    lunch: false,
+                    dinner: false,
+                    breakfast2: false, // Add breakfast2 here
+                }; 	
+            }
 
-			const validMeals = ["breakfast1", "lunch", "dinner", "breakfast2"];
-			if (!validMeals.includes(meal)) {
-				return res.status(400).json({ message: "Invalid meal type" });
-			}
+            const validMeals = ["breakfast1", "lunch", "dinner", "breakfast2"];
+            if (!validMeals.includes(meal)) {
+                return res.status(400).json({ message: "Invalid meal type" });
+            }
 
-			if (user.meals[meal] === true) {
-				return res.status(201).json({
-					message: `User has already scanned for ${meal}.`,
-				});
-			}
+            if (user.meals[meal] === true) {
+                return res.status(201).json({
+                    message: `User has already scanned for ${meal}.`,
+                });
+            }
 
-			user.meals[meal] = true;
-			await user.save();
+            user.meals[meal] = true;
+            await user.save();
 
-			const username = user.username;
-			return res.status(200).json({
-				message: `Meal scanned successfully for ${username}.`,
-				meal,
-			});
-		} catch (error) {
-			console.error(error);
-			return res.status(500).json({ message: "Server error." });
-		}
-	} else {
-		return res.status(401).json({ message: "Invalid admin credentials." });
-	}
+            // Update the AdminDashboard meal count
+            const dashboard = await AdminDashboard.findOne(); 
+            if (!dashboard) {
+                // Create a new dashboard entry if it doesn't exist
+                const newDashboard = new AdminDashboard({
+                    breakfast1Count: meal === 'breakfast1' ? 1 : 0,
+                    breakfast2Count: meal === 'breakfast2' ? 1 : 0,
+                    lunchCount: meal === 'lunch' ? 1 : 0,
+                    dinnerCount: meal === 'dinner' ? 1 : 0,
+                });
+                await newDashboard.save();
+            } else {
+                // Increment the appropriate count based on the meal
+                if (meal === 'breakfast1') {
+                    dashboard.breakfast1Count += 1;
+                } else if (meal === 'breakfast2') {
+                    dashboard.breakfast2Count += 1;
+                } else if (meal === 'lunch') {
+                    dashboard.lunchCount += 1;
+                } else if (meal === 'dinner') {
+                    dashboard.dinnerCount += 1;
+                }
+                await dashboard.save();
+            }
+
+            const username = user.username;
+            return res.status(200).json({
+                message: `Meal scanned successfully for ${username}.`,
+                meal,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Server error." });
+        }
+    } else {
+        return res.status(401).json({ message: "Invalid admin credentials." });
+    }
+};
+
+
+
+export const getMealCounts = async (req, res) => {
+    const { adminEmail } = req.body; 
+
+    if (adminEmail !== process.env.Admin_Email) {
+        return res.status(401).json({ message: "Unauthorized: Invalid admin credentials." });
+    }
+
+    try {
+        const dashboard = await AdminDashboard.findOne();
+
+        if (!dashboard) {
+            return res.status(404).json({ message: "Dashboard not found." });
+        }
+
+        return res.status(200).json({
+            breakfast1Count: dashboard.breakfast1Count,
+            breakfast2Count: dashboard.breakfast2Count,
+            lunchCount: dashboard.lunchCount,
+            dinnerCount: dashboard.dinnerCount,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error."});
+	}	
 };

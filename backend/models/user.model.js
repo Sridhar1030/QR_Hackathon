@@ -19,6 +19,20 @@ const userSchema = new mongoose.Schema(
 			lowercase: true,
 			index: true,
 		},
+		phoneNumber :{
+			type: String,
+			required: true,
+			unique: true,
+		},
+		github:{
+			type: String,
+			required: true,
+			unique: true,
+		},
+		college: {
+			type: String,
+			required: true,
+		},
 		password: {
 			type: String,
 			required: true,
@@ -27,12 +41,25 @@ const userSchema = new mongoose.Schema(
 			// Added refreshToken field
 			type: String,
 		},
+		gender : {
+			type: String,
+			required: true,
+		},
+		teamName: {
+			type : String,
+			required: true,
+		},
 		meals: {
 			breakfast1: { type: Boolean, default: false },
 			breakfast2: { type: Boolean, default: false },
 			lunch: { type: Boolean, default: false },
 			dinner: { type: Boolean, default: false },
 		},
+		role: {
+			type: String,
+			enum:['admin', 'user'],
+			default: "user"
+		}
 	},
 	{
 		timestamps: true,
