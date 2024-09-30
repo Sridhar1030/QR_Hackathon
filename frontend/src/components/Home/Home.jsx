@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import TeamDetailsPopup from "../TeamDetailsPopup";
 
 const Homepage = () => {
   const [userData, setUserData] = useState(null);
   const [currentMeal, setCurrentMeal] = useState("");
   const [error, setError] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isTeamPopupOpen, setIsTeamPopupOpen] = useState(false);
+  const [teamDetails, setTeamDetails] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +60,25 @@ const Homepage = () => {
     setImageLoaded(false);
   };
 
+  const handleTeamDetailsClick = async () => {
+    if (userData?.teamName) {
+      try {
+        const response = await axios.post(
+          'http://localhost:3000/api/users/getTeamDetailsByTeamName',
+          { teamName: userData.teamName }
+        );
+        setTeamDetails(response.data.member);
+        setIsTeamPopupOpen(true);
+      } catch (error) {
+        console.error("Error fetching team details", error);
+        setError("Failed to load team details. Please try again.");
+      }
+    } else {
+      console.error("Team name not available");
+      setError("Team name not available. Please update your profile.");
+    }
+  };
+
   if (error) {
     return (
       <div className="flex flex-col h-screen bg-gray-100 items-center justify-center p-4">
@@ -76,7 +98,7 @@ const Homepage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 relative">
-      <div className="absolute inset-0 -z-10 bg-black"> {/* Fallback background color */}
+      <div className="absolute inset-0 -z-10 bg-black">
         <img
           src="/bgblack.jpg"
           className={`h-full w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -95,7 +117,10 @@ const Homepage = () => {
           </h2>
         </div>
         <div className="w-full space-y-6">
-        <button className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300">
+          <button 
+            onClick={handleTeamDetailsClick}
+            className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300"
+          >
             Team Details
           </button>
           <button className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300">
@@ -106,6 +131,11 @@ const Homepage = () => {
           </button>
         </div>
       </div>
+      <TeamDetailsPopup 
+        isOpen={isTeamPopupOpen}
+        onClose={() => setIsTeamPopupOpen(false)}
+        teamDetails={teamDetails}
+      />
     </div>
   );
 };
