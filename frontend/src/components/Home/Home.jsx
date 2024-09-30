@@ -17,6 +17,8 @@ const Homepage = () => {
   const [isGamesPopupOpen, setIsGamesPopupOpen] = useState(false); 
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -26,7 +28,7 @@ const Homepage = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:3000/api/users/getUserDetailsById/${userId}`
+          `${backendUrl}/api/users/getUserDetailsById/${userId}`
         );
         setUserData(response.data.user);
         console.log(response.data.user);
@@ -70,7 +72,7 @@ const Homepage = () => {
     if (userData?.teamName) {
       try {
         const response = await axios.post(
-          'http://localhost:3000/api/users/getTeamDetailsByTeamName',
+          `${backendUrl}/api/users/getTeamDetailsByTeamName`,
           { teamName: userData.teamName }
         );
         setTeamDetails(response.data.member);

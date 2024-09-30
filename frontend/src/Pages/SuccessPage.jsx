@@ -10,11 +10,13 @@ const SuccessPage = () => {
     const userId = state?.userId;
     const meal = state?.meal;
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     useEffect(() => {
         const fetchUserDetails = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`http://localhost:3000/api/users/userDetails/${userId}`);
+                    const response = await axios.get(`${backendUrl}/api/users/userDetails/${userId}`);
                     setUsername(response.data.username); // Adjust based on your API response structure
                 } catch (error) {
                     console.error("Error fetching user details:", error);

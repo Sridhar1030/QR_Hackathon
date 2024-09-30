@@ -10,6 +10,8 @@ const QrScannerComponent = () => {
   const [isCooldown, setIsCooldown] = useState(false); // Track cooldown state
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const handleScan = async (data) => {
     if (data && !isCooldown) { // Check if not in cooldown
       try {
@@ -21,20 +23,21 @@ const QrScannerComponent = () => {
 
         setQrData(parsedData);
 
-        const adminEmail = "canteen@gmail.com";
-        const password = "canteen";
+        const adminEmail = localStorage.getItem("email");
+        const cleanedEmail = adminEmail.replace(/"/g, '');
         const id = parsedData.userId;
         const meal = parsedData.meal;
 
+        console.log("adminEmail", adminEmail);
+
         const response = {
           id,
-          adminEmail,
-          password,
+          adminEmail:cleanedEmail,
           meal,
         };
         console.log("response", response);
 
-        const apiResponse = await axios.post("http://localhost:3000/api/users/scan", response);
+        const apiResponse = await axios.post(`${backendUrl}/api/users/scan`, response);
 
         if (apiResponse.status === 200) {
           toast.success("Scan successful!"); // Show success message
