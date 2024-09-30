@@ -48,9 +48,7 @@ export const signUpUser = async (req, res) => {
 			const lastTwo = member.phoneNumber.substring(member.phoneNumber.length - 2);
 			
 			const password = firstTwo + lastTwo;
-			
-			console.log("Generated password:", password);
-			console.log("Phone Number:", member.phoneNumber);
+		
 
 			const newUser = new User({
 				username: member.name,

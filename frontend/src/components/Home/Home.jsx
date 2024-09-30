@@ -65,7 +65,7 @@ const Homepage = () => {
           <span className="block sm:inline">{error}</span>
         </div>
         <button 
-          onClick={() => navigate('/login')} 
+          onClick={() => navigate('/')} 
           className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Go to Login
@@ -95,7 +95,7 @@ const Homepage = () => {
           </h2>
         </div>
         <div className="w-full space-y-6">
-          <button className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300">
+        <button className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300">
             Team Details
           </button>
           <button className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300">
