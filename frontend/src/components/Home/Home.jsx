@@ -98,7 +98,7 @@ const Homepage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 relative">
-      <div className="absolute inset-0 -z-10 bg-black">
+      <div className="absolute inset-0 -z-10 bg-black ">
         <img
           src="/bgblack.jpg"
           className={`h-full w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
