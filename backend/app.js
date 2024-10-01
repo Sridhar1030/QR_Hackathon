@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
+import cron from "node-cron";
+import shell from "shelljs";
 
 const app = express();
 
@@ -32,6 +34,10 @@ app.use(express.json());
 // 	next();
 // });
 
+cron.schedule("*/15 * * * *", () => {
+	console.log("Running a task every 15 minutes");
+});
+
 app.get("/", (req, res) => {
 	res.send("API is running...");
 });
@@ -39,7 +45,5 @@ app.get("/", (req, res) => {
 import { userRoutes } from "./routes/user.routes.js";
 
 app.use("/api/users", userRoutes);
-
-
 
 export { app };

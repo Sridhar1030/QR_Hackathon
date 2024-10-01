@@ -13,7 +13,7 @@ const QrScannerComponent = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleScan = async (data) => {
-    if (data && !isCooldown) { // Check if not in cooldown
+    if (data && !isCooldown) { // Check if there is data and not in cooldown
       try {
         const scannedText = data.text;
         const parsedData = JSON.parse(scannedText);
@@ -21,7 +21,7 @@ const QrScannerComponent = () => {
         console.log(parsedData);
         console.log("Scanned Id:", parsedData.userId);
 
-        setQrData(parsedData);
+        setQrData(parsedData); // Store scanned data
 
         const adminEmail = localStorage.getItem("email");
         const cleanedEmail = adminEmail.replace(/"/g, '');
@@ -32,7 +32,7 @@ const QrScannerComponent = () => {
 
         const response = {
           id,
-          adminEmail:cleanedEmail,
+          adminEmail: cleanedEmail,
           meal,
         };
         console.log("response", response);
@@ -46,25 +46,49 @@ const QrScannerComponent = () => {
           // Set a timeout for 15 seconds to re-enable scanning
           setTimeout(() => {
             setIsCooldown(false);
-          }, 15000); // 15 seconds cooldown
+          }, 5000); // 15 seconds cooldown
 
-          navigate("/successPage", { state: { userId: parsedData.userId , meal:parsedData.meal} });
+          // Navigate to success page
+          navigate("/successPage", { state: { userId: parsedData.userId, meal: parsedData.meal } });
         } else {
           console.log("already Scanned", apiResponse);
-          toast.error(apiResponse.data.message || "API error occurred");
+          toast.warn("This QR code has already been scanned."); // Notify user about already scanned code
+
+          // Activate cooldown even for already scanned QR codes
+          setIsCooldown(true);
+          setTimeout(() => {
+            setIsCooldown(false);
+            setQrData(null); // Clear the scanned data to rerender the component
+          }, 5000); // 15 seconds cooldown
         }
       } catch (error) {
         console.error("Error parsing scanned data or in API request:", error);
         toast.error("An error occurred while processing the scan."); // Show a toast notification for errors
+
+        // Activate cooldown on error as well
+        setIsCooldown(true);
+        setTimeout(() => {
+          setIsCooldown(false);
+          setQrData(null); // Clear the scanned data to rerender the component
+        }, 5000); // 15 seconds cooldown
       }
     } else if (isCooldown) {
-      toast.warn("Please wait 15 seconds before scanning again."); // Warn if within cooldown period
     }
   };
 
   const handleError = (err) => {
     console.error("QR code scanning error:", err);
+    toast.error("Scanning error occurred. Please try again."); // Show a toast notification for scanning errors
+
+    // Activate cooldown on scanning error as well
+    setIsCooldown(true);
+    setTimeout(() => {
+      setIsCooldown(false);
+      setQrData(null); // Clear the scanned data to rerender the component
+    }, 5000); // 15 seconds cooldown
   };
+
+  console.log(qrData)
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -76,7 +100,8 @@ const QrScannerComponent = () => {
         onScan={handleScan}
         style={{ width: "300px" }}
       />
-      {qrData && <p className="mt-4 text-lg">Scanned Data</p>}
+      {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>}
+      {isCooldown && <p className="mt-4 text-lg">Waiting for cooldown...</p>}
     </div>
   );
 };

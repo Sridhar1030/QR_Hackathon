@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import TeamDetailsPopup from "../TeamDetailsPopup";
 import PersonalDetailsPopup from "../PersonalDetailsPopup";
 import GamesPopup from "../GamesPopup";
-
+import QRCode from "qrcode";
 
 const Homepage = () => {
   const [userData, setUserData] = useState(null);
@@ -13,8 +13,8 @@ const Homepage = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isTeamPopupOpen, setIsTeamPopupOpen] = useState(false);
   const [teamDetails, setTeamDetails] = useState([]);
-  const [isPersonalPopupOpen, setIsPersonalPopupOpen] = useState(false); 
-  const [isGamesPopupOpen, setIsGamesPopupOpen] = useState(false); 
+  const [isPersonalPopupOpen, setIsPersonalPopupOpen] = useState(false);
+  const [isGamesPopupOpen, setIsGamesPopupOpen] = useState(false);
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -47,13 +47,13 @@ const Homepage = () => {
     const hour = now.getHours();
 
     if (hour >= 6 && hour < 10) {
-      setCurrentMeal("Breakfast 1");
+      setCurrentMeal("breakfast1");
     } else if (hour >= 10 && hour < 12) {
-      setCurrentMeal("Breakfast 2");
+      setCurrentMeal("breakfast2");
     } else if (hour >= 12 && hour < 15) {
-      setCurrentMeal("Lunch");
+      setCurrentMeal("lunch");
     } else if (hour >= 18 && hour < 21) {
-      setCurrentMeal("Dinner");
+      setCurrentMeal("dinner");
     } else {
       setCurrentMeal("No meal available");
     }
@@ -92,9 +92,22 @@ const Homepage = () => {
   };
 
   const handleGamesClick = () => {
-    setIsGamesPopupOpen(true); 
+    setIsGamesPopupOpen(true);
   };
 
+
+  const qrData =
+  {
+    userId: userData?._id,
+    meal: currentMeal
+  }
+
+  const handleMealClick = async () => {
+    console.log("meal", qrData)
+    const qrCode = await QRCode.toDataURL(JSON.stringify(qrData))
+    console.log("Meal Clicked")
+    navigate('/qrcode', { state: { qrCodeUrl: qrCode , currentMeal } })
+  }
   if (error) {
     return (
       <div className="flex flex-col h-screen bg-gray-100 items-center justify-center p-4">
@@ -102,8 +115,8 @@ const Homepage = () => {
           <strong className="font-bold">Error: </strong>
           <span className="block sm:inline">{error}</span>
         </div>
-        <button 
-          onClick={() => navigate('/')} 
+        <button
+          onClick={() => navigate('/')}
           className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Go to Login
@@ -133,30 +146,32 @@ const Homepage = () => {
           </h2>
         </div>
         <div className="w-full space-y-6">
-        <button 
+          <button
             onClick={handlePersonalDetailsClick}
             className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300"
           >
             Personal Details
           </button>
-          <button 
+          <button
             onClick={handleTeamDetailsClick}
             className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300"
           >
             Team Details
           </button>
-          <button className="w-full bg-red-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-red-600 transition duration-300">
+          <button className="w-full bg-red-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-red-600 transition duration-300"
+            onClick={handleMealClick}
+          >
             Food ({currentMeal})
           </button>
-          <button 
-            onClick={handleGamesClick} 
+          <button
+            onClick={handleGamesClick}
             className="w-full bg-yellow-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-yellow-600 transition duration-300"
           >
             Games
           </button>
         </div>
       </div>
-      <TeamDetailsPopup 
+      <TeamDetailsPopup
         isOpen={isTeamPopupOpen}
         onClose={() => setIsTeamPopupOpen(false)}
         teamDetails={teamDetails}
@@ -164,11 +179,11 @@ const Homepage = () => {
       <PersonalDetailsPopup
         isOpen={isPersonalPopupOpen}
         onClose={() => setIsPersonalPopupOpen(false)}
-        userDetails={userData} 
+        userDetails={userData}
       />
       <GamesPopup
         isOpen={isGamesPopupOpen}
-        onClose={() => setIsGamesPopupOpen(false)} 
+        onClose={() => setIsGamesPopupOpen(false)}
       />
     </div>
   );
