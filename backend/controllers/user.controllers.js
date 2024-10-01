@@ -27,7 +27,17 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 
 // Controller for signing up a user
 export const signUpUser = async (req, res) => {
-	const { teamName } = req.body;
+	const { teamName , adminEmail } = req.body;
+
+	if (!(adminEmail === process.env.Admin_Email)){
+		return res.status(401).json({ message: "Unauthorized access." });
+	}
+
+	const teamNameExists = await User.findOne({ teamName });
+
+	if (teamNameExists) {
+		return res.status(400).json({ message: "Team already exists." });
+	}
 
 	const teamsFilePath = path.join(process.cwd(), "./participantsGrouped.json");
 	
