@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Toastify styles for small screens */
+@media only screen and (max-width: 600px) {
+    .Toastify__toast {
+        width: 90% !important; /* Reduce width for smaller devices */
+        margin: 0 auto; /* Center the toast */
+    }
+
+    .Toastify__toast-body {
+        font-size: 14px !important; /* Adjust text size for mobile */
+    }
+
+    .Toastify__close-button {
+        font-size: 16px !important; /* Adjust close button size */
+    }
+}
