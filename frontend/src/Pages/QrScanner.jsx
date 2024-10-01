@@ -90,6 +90,15 @@ const QrScannerComponent = () => {
 
   console.log(qrData);
 
+  const previewStyle = {
+    width: "100%",
+    maxWidth: "300px",
+  };
+
+  const videoConstraints = {
+    facingMode: { exact: "environment" }, // Force rear camera
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <ToastContainer /> {/* Add ToastContainer for notifications */}
@@ -98,8 +107,8 @@ const QrScannerComponent = () => {
         delay={300}
         onError={handleError}
         onScan={handleScan}
-        facingMode="environment" 
-        style={{ width: "300px" }}
+        style={previewStyle}
+        constraints={{ video: videoConstraints }} // Apply video constraints for camera
       />
       {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>}
       {isCooldown && <p className="mt-4 text-lg">Waiting for cooldown...</p>}
