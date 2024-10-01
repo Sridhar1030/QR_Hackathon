@@ -17,6 +17,7 @@ import SuccessPage from "../src/Pages/SuccessPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute component
 import NotFoundPage from "./Pages/NotFoundPage.jsx";
 import SignupPage from "./components/Auth/SignupPage.jsx";
+import AdminDashboard from "./Pages/AdminDashboard.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -79,6 +80,15 @@ const router = createBrowserRouter(
                 element={
                     <ProtectedRoute
                         element={<Admin />}
+                        allowedRoles={["admin"]}
+                    />
+                }
+            />
+            <Route
+                path="/adminDash"
+                element={
+                    <ProtectedRoute
+                        element={<AdminDashboard />}
                         allowedRoles={["admin"]}
                     />
                 }
