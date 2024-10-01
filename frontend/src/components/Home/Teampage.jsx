@@ -2,10 +2,12 @@ import React from 'react'
 
 const Teampage = () => {
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     const fetchTeamDetails = async () => {
         try {
             const response = await axios.post(
-                `http://localhost:3000/api/users/getTeamDetailsByTeamName`,
+                `${backendUrl}/api/users/getTeamDetailsByTeamName`,
                 {
                     teamName: userData?.teamName,
                 }

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TeamDetailsPopup from "../TeamDetailsPopup";
+import PersonalDetailsPopup from "../PersonalDetailsPopup";
+import GamesPopup from "../GamesPopup";
+
 
 const Homepage = () => {
   const [userData, setUserData] = useState(null);
@@ -10,7 +13,11 @@ const Homepage = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isTeamPopupOpen, setIsTeamPopupOpen] = useState(false);
   const [teamDetails, setTeamDetails] = useState([]);
+  const [isPersonalPopupOpen, setIsPersonalPopupOpen] = useState(false); 
+  const [isGamesPopupOpen, setIsGamesPopupOpen] = useState(false); 
   const navigate = useNavigate();
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -21,9 +28,10 @@ const Homepage = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:3000/api/users/getUserDetailsById/${userId}`
+          `${backendUrl}/api/users/getUserDetailsById/${userId}`
         );
         setUserData(response.data.user);
+        console.log(response.data.user);
       } catch (error) {
         console.error("Error fetching user data", error);
         setError("Failed to load user data. Please try logging in again.");
@@ -64,7 +72,7 @@ const Homepage = () => {
     if (userData?.teamName) {
       try {
         const response = await axios.post(
-          'http://localhost:3000/api/users/getTeamDetailsByTeamName',
+          `${backendUrl}/api/users/getTeamDetailsByTeamName`,
           { teamName: userData.teamName }
         );
         setTeamDetails(response.data.member);
@@ -77,6 +85,14 @@ const Homepage = () => {
       console.error("Team name not available");
       setError("Team name not available. Please update your profile.");
     }
+  };
+
+  const handlePersonalDetailsClick = () => {
+    setIsPersonalPopupOpen(true);
+  };
+
+  const handleGamesClick = () => {
+    setIsGamesPopupOpen(true); 
   };
 
   if (error) {
@@ -117,17 +133,26 @@ const Homepage = () => {
           </h2>
         </div>
         <div className="w-full space-y-6">
+        <button 
+            onClick={handlePersonalDetailsClick}
+            className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300"
+          >
+            Personal Details
+          </button>
           <button 
             onClick={handleTeamDetailsClick}
             className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300"
           >
             Team Details
           </button>
-          <button className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300">
-            Personal Details
-          </button>
           <button className="w-full bg-red-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-red-600 transition duration-300">
             Food ({currentMeal})
+          </button>
+          <button 
+            onClick={handleGamesClick} 
+            className="w-full bg-yellow-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-yellow-600 transition duration-300"
+          >
+            Games
           </button>
         </div>
       </div>
@@ -135,6 +160,15 @@ const Homepage = () => {
         isOpen={isTeamPopupOpen}
         onClose={() => setIsTeamPopupOpen(false)}
         teamDetails={teamDetails}
+      />
+      <PersonalDetailsPopup
+        isOpen={isPersonalPopupOpen}
+        onClose={() => setIsPersonalPopupOpen(false)}
+        userDetails={userData} 
+      />
+      <GamesPopup
+        isOpen={isGamesPopupOpen}
+        onClose={() => setIsGamesPopupOpen(false)} 
       />
     </div>
   );

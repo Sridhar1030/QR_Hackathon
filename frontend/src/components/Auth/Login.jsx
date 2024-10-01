@@ -9,12 +9,14 @@ const Login = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Use the useNavigate hook
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         localStorage.clear();
         try {
             const response = await axios.post(
-                "http://localhost:3000/api/users/login",
+                `${backendUrl}/api/users/login`,
                 {
                     email,
                     password,
@@ -22,7 +24,7 @@ const Login = () => {
             );
 
             if (response.data.role === "admin") {
-                localStorage.setItem("id", JSON.stringify(response.data.user._id));
+                localStorage.setItem("email", JSON.stringify(response.data.email));
                 localStorage.setItem("role","admin")
                 navigate("/admin"); // Use navigate function to route
             } else {
