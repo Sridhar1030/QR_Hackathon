@@ -88,7 +88,7 @@ const QrScannerComponent = () => {
     }, 5000); // 15 seconds cooldown
   };
 
-  console.log(qrData)
+  console.log(qrData);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -98,6 +98,7 @@ const QrScannerComponent = () => {
         delay={300}
         onError={handleError}
         onScan={handleScan}
+        facingMode="environment" // Use rear camera by default
         style={{ width: "300px" }}
       />
       {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>}
