@@ -98,7 +98,7 @@ const QrScannerComponent = () => {
         delay={300}
         onError={handleError}
         onScan={handleScan}
-        facingMode="environment" // Use rear camera by default
+        facingMode="environment" 
         style={{ width: "300px" }}
       />
       {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>}
