@@ -55,7 +55,7 @@ const Homepage = () => {
     } else if (hour >= 18 && hour < 21) {
       setCurrentMeal("dinner");
     } else {
-      setCurrentMeal("No meal available");
+      setCurrentMeal("null");
     }
   };
 
@@ -96,17 +96,21 @@ const Homepage = () => {
   };
 
 
+  const link = "https://youtu.be/dQw4w9WgXcQ?si=Z89EeRG8ovOojrhk"
   const qrData =
   {
     userId: userData?._id,
-    meal: currentMeal
+    meal: currentMeal,
+    youtube: link
   }
+  console.log(qrData)
 
   const handleMealClick = async () => {
     console.log("meal", qrData)
     const qrCode = await QRCode.toDataURL(JSON.stringify(qrData))
+    console.log(qrCode)
     console.log("Meal Clicked")
-    navigate('/qrcode', { state: { qrCodeUrl: qrCode , currentMeal } })
+    navigate('/qrcode', { state: { qrCodeUrl: qrCode, currentMeal } })
   }
   if (error) {
     return (
@@ -158,10 +162,15 @@ const Homepage = () => {
           >
             Team Details
           </button>
-          <button className="w-full bg-red-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-red-600 transition duration-300"
+          <button
+            className={`w-full ${currentMeal
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-gray-400 cursor-not-allowed"
+              } text-white py-4 rounded-lg text-xl font-semibold transition duration-300`}
             onClick={handleMealClick}
+            disabled={!currentMeal} // Disables the button if there's no current meal
           >
-            Food ({currentMeal})
+            {currentMeal ? `Food (${currentMeal})` : "No meals available now"}
           </button>
           <button
             onClick={handleGamesClick}
