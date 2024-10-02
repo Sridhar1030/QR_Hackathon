@@ -26,7 +26,7 @@ const Login = () => {
             if (response.data.role === "admin") {
                 localStorage.setItem("email", JSON.stringify(response.data.email));
                 localStorage.setItem("role","admin")
-                navigate("/admin"); // Use navigate function to route
+                navigate("/adminDash"); // Use navigate function to route
             } else {
                 localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
                 localStorage.setItem("id" , response.data.user._id )

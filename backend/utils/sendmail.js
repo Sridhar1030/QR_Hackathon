@@ -21,7 +21,7 @@ const sendEmail = async (recipient_email, password, name) => {
 
         const mail_configs = {
             from: process.env.MY_EMAIL,
-            to: "sridharpillai75@gmail.com",
+            to: recipient_email,
             subject: "Welcome to VCET Hackathon 2024 - Here Are Your Login Details",
             html: `<!DOCTYPE html>
                     <html lang="en">

@@ -55,7 +55,7 @@ const Homepage = () => {
     } else if (hour >= 18 && hour < 21) {
       setCurrentMeal("dinner");
     } else {
-      setCurrentMeal("null");
+      setCurrentMeal(null);
     }
   };
 
@@ -130,54 +130,50 @@ const Homepage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 relative">
-      <div className="absolute inset-0 -z-10 bg-black ">
-        <img
-          src="/bgblack.jpg"
-          className={`h-full w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-          alt="Background"
-          onLoad={handleImageLoad}
-          onError={handleImageError}
-        />
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-[#090535] to-[#0c1577] relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-[#f5af64] rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#252ac7] rounded-full filter blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
       </div>
-      <div className="flex-1 flex flex-col items-center justify-between py-8 px-4 relative z-10">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            {userData?.teamName || "Team Name"}
-          </h1>
-          <h2 className="text-2xl text-white">
-            {userData?.username || "Member Name"}
-          </h2>
+
+      {/* Message for larger screens */}
+      <div className="hidden lg:flex items-center justify-center h-screen bg-[#0c15776a] text-white text-2xl font-bold z-10">
+        <div className="bg-[#090535] p-8 rounded-lg shadow-lg border border-[#f5af64] backdrop-blur-sm bg-opacity-80">
+          Please open on a mobile device for the best experience.
         </div>
-        <div className="w-full space-y-6">
-          <button
-            onClick={handlePersonalDetailsClick}
-            className="w-full bg-green-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-green-600 transition duration-300"
-          >
-            Personal Details
-          </button>
-          <button
-            onClick={handleTeamDetailsClick}
-            className="w-full bg-blue-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-blue-600 transition duration-300"
-          >
-            Team Details
-          </button>
-          <button
-            className={`w-full ${currentMeal
-                ? "bg-red-500 hover:bg-red-600"
-                : "bg-gray-400 cursor-not-allowed"
-              } text-white py-4 rounded-lg text-xl font-semibold transition duration-300`}
-            onClick={handleMealClick}
-            disabled={!currentMeal} // Disables the button if there's no current meal
-          >
-            {currentMeal ? `Food (${currentMeal})` : "No meals available now"}
-          </button>
-          <button
-            onClick={handleGamesClick}
-            className="w-full bg-yellow-500 text-white py-4 rounded-lg text-xl font-semibold hover:bg-yellow-600 transition duration-300"
-          >
-            Games
-          </button>
+      </div>
+
+      {/* Mobile view */}
+      <div className="lg:hidden flex flex-col h-full z-10">
+        <div className="flex-1 flex flex-col items-center justify-between py-12 px-6">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-extrabold text-[#f5af64] mb-3 shadow-text">
+              {userData?.teamName || "Team Name"}
+            </h1>
+            <h2 className="text-2xl text-white font-semibold shadow-text">
+              {userData?.username || "Member Name"}
+            </h2>
+          </div>
+          <div className="w-full space-y-6">
+            <Button onClick={handlePersonalDetailsClick} bgColor="bg-[#252ac7]" hoverColor="hover:bg-[#1e22a0]">
+              Personal Details
+            </Button>
+            <Button onClick={handleTeamDetailsClick} bgColor="bg-[#f5af64]" textColor="text-[#182567]" hoverColor="hover:bg-[#f3a04e]">
+              Team Details
+            </Button>
+            <Button
+              onClick={handleMealClick}
+              bgColor={currentMeal ? "bg-[#252ac7]" : "bg-gray-400"}
+              hoverColor={currentMeal ? "hover:bg-[#1e22a0]" : ""}
+              disabled={!currentMeal}
+            >
+              {currentMeal ? `Food (${currentMeal})` : "No meals available now"}
+            </Button>
+            <Button onClick={handleGamesClick} bgColor="bg-[#f5af64]" textColor="text-[#182567]" hoverColor="hover:bg-[#f3a04e]">
+              Games
+            </Button>
+          </div>
         </div>
       </div>
       <TeamDetailsPopup
@@ -197,5 +193,24 @@ const Homepage = () => {
     </div>
   );
 };
+
+const Button = ({ children, onClick, bgColor, textColor = "text-white", hoverColor, disabled = false }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className={`
+      w-full ${bgColor} ${textColor} ${hoverColor} 
+      py-5 rounded-2xl text-xl font-semibold 
+      transition duration-300 shadow-lg
+      transform hover:scale-105 active:scale-95
+      disabled:opacity-50 disabled:cursor-not-allowed
+      backdrop-blur-sm bg-opacity-90
+    `}
+  >
+    {children}
+  </button>
+);
+
+
 
 export default Homepage;

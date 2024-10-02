@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For navigation
 import axios from 'axios';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -11,6 +11,8 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 // Register components for chart.js
 ChartJS.register(
@@ -29,9 +31,10 @@ const AdminDashboard = () => {
         lunchCount: 0,
         dinnerCount: 0
     });
-    const adminEmail = JSON.parse(localStorage.getItem("email"))
 
-    console.log(adminEmail)
+    const adminEmail = JSON.parse(localStorage.getItem("email"));
+    const navigate = useNavigate(); // To handle redirection
+
     useEffect(() => {
         const fetchAdmin = async () => {
             const role = localStorage.getItem("role");
@@ -48,9 +51,14 @@ const AdminDashboard = () => {
                 }
             }
         };
-        
+
         fetchAdmin();
-    }, []);
+    }, [adminEmail]);
+
+    // Handle button click to navigate to /admin
+    const handleScannerClick = () => {
+        navigate('/admin');
+    };
 
     // Chart data for Bar graph
     const chartData = {
@@ -86,6 +94,14 @@ const AdminDashboard = () => {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
+
+            {/* Scanner Button */}
+            <button
+                className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 mb-8"
+                onClick={handleScannerClick}
+            >
+                Scanner
+            </button>
 
             {/* Table */}
             <div className="mb-8">
