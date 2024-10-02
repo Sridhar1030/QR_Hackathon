@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import participantsGroupedData from './FinalTeam.json';
 
 const SignupPage = () => {
     const [teamName, setTeamName] = useState("");
+    const [teams, setTeams] = useState({});
+    const [selectedTeam, setSelectedTeam] = useState(null);
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const adminEmail = localStorage.getItem("email");
     const cleanedEmail = adminEmail.replace(/"/g, "");
+
+    useEffect(() => {
+        // Load the JSON data from the local file when the component mounts
+        setTeams(participantsGroupedData);
+    }, []);
+
+    const handleTeamSelect = (e) => {
+        const selectedTeamName = e.target.value;
+        setTeamName(selectedTeamName);
+        setSelectedTeam(teams[selectedTeamName]);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,22 +37,27 @@ const SignupPage = () => {
                 }
             );
 
-            toast.success(
-                response.data.message || "Team signed up successfully!"
-            );
+            toast.success(response.data.message || "Team signed up successfully!");
 
+            // Remove the signed-up team from the local data
+            const updatedTeams = { ...teams };
+            delete updatedTeams[teamName];
+            setTeams(updatedTeams);
+
+            // Reset the form and selected team
             setTeamName("");
+            setSelectedTeam(null);
+
+            // Here, you would typically update the JSON file on the server
+            // Since we're working with a local file, you'll need to implement
+            // a way to persist these changes, possibly by sending the updated
+            // data to the server to rewrite the file
+
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||
-                    "Something went wrong. Please try again."
+                "Something went wrong. Please try again."
             );
-        }
-    };
-
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            handleSubmit(e);
         }
     };
 
@@ -49,10 +68,9 @@ const SignupPage = () => {
                 backgroundImage: 'url("/api/placeholder/1920/1080")',
             }}
         >
-            {/* ToastContainer with responsive position */}
             <ToastContainer
-                position="top-center" // Central position, works well for mobile
-                autoClose={3000} // Adjust close time
+                position="top-center"
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={true}
                 closeOnClick
@@ -85,10 +103,7 @@ const SignupPage = () => {
                     </p>
                 </div>
 
-                <form
-                    onSubmit={handleSubmit}
-                    className="space-y-4 md:space-y-6"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                     <div>
                         <label
                             htmlFor="teamName"
@@ -96,18 +111,35 @@ const SignupPage = () => {
                         >
                             Team Name
                         </label>
-                        <input
-                            type="text"
+                        <select
                             id="teamName"
                             value={teamName}
-                            onChange={(e) => setTeamName(e.target.value)}
-                            onKeyDown={handleKeyDown}
-                            className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                            focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                            placeholder="Enter your team name"
+                            onChange={handleTeamSelect}
+                            className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                             required
-                        />
+                        >
+                            <option value="">Select a team</option>
+                            {Object.keys(teams).map((team) => (
+                                <option key={team} value={team}>
+                                    {team}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
+                    {selectedTeam && (
+                        <div className="mt-4">
+                            <h3 className="text-lg font-medium text-gray-900 mb-2">Team Members:</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                                {selectedTeam.map((member, index) => (
+                                    <li key={index} className="text-sm text-gray-600">
+                                        {member.name} - {member.email}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
                     <div>
                         <button
                             type="submit"

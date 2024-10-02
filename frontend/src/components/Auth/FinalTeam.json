@@ -1,0 +1,1289 @@
+{
+  "Context Vectors": [
+    {
+      "name": "Abhinav Nair",
+      "email": "abhinavnair7404@gmail.com",
+      "college": "Dwarkadas J Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Nair-Abhinav"
+    },
+    {
+      "name": "Amit Upadhayay",
+      "email": "amitu4360@gmail.com",
+      "college": "Dwarkadas J Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Amit4360"
+    },
+    {
+      "name": "Aryan Singh",
+      "email": "aryansingh.as235@gmail.com",
+      "college": "Dwarkadas J Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Aryan-webp"
+    },
+    {
+      "name": "Akshay Kulkarni",
+      "email": "akshaykulkarni3467@gmail.com",
+      "college": "Dwarkadas J Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/AkshayKulkarni3467"
+    }
+  ],
+  "HackVengers": [
+    {
+      "name": "Haard Solanki",
+      "email": "haardsolanki.itm@gmail.com",
+      "college": "ITM University",
+      "gender": "male",
+      "github": "https://github.com/haard18"
+    },
+    {
+      "name": "Dev Patil",
+      "email": "dev.patil1006@gmail.com",
+      "college": "ITM University",
+      "gender": "male",
+      "github": "https://github.com/DevPatils"
+    }
+  ],
+  "O(Won)": [
+    {
+      "name": "Dhirendra Singh",
+      "email": "dhirendrasingh.contact@gmail.com",
+      "college": "Thakur College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/dhirendrasingh25"
+    },
+    {
+      "name": "Shlok Prajapati",
+      "email": "shlokprajapati2003@gmail.com",
+      "college": "Thakur College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/shlok-2003"
+    },
+    {
+      "name": "Vivek Singh",
+      "email": "viveksngh2611@gmail.com",
+      "college": "Thakur College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/VivekZ79"
+    },
+    {
+      "name": "Bhargav Varma",
+      "email": "bhargavva46@gmail.com",
+      "college": "Thakur College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Bhargav-44"
+    }
+  ],
+  "ProblemBusters": [
+    {
+      "name": "Megharaj Dandgavhal",
+      "email": "megharajdandgavhal2004@gmail.com",
+      "college": "Walchand Institute of Technology Solapur",
+      "gender": "male",
+      "github": "https://github.com/Meghraj2004"
+    },
+    {
+      "name": "Shubham Sakhare",
+      "email": "ssakhare2004@gmail.com",
+      "college": "Walchand Institute of Technology Solapur",
+      "gender": "male",
+      "github": "https://github.com/SHUBHAM7008"
+    },
+    {
+      "name": "Shreyas Chougule",
+      "email": "shreyas0183@gmail.com",
+      "college": "Walchand Institute of Technology Solapur",
+      "gender": "male",
+      "github": "https://github.com/Shreyas018"
+    },
+    {
+      "name": "Siddheshwar Sakhare",
+      "email": "siddheshwars2005@gnail.com",
+      "college": "Walchand Collage of Engineering Sangli",
+      "gender": "male",
+      "github": "https://github.com/siddheshwar-sakhare"
+    }
+  ],
+  "Code Crafters": [
+    {
+      "name": "Yash Bachwani",
+      "email": "yash.bachwani30@gmail.com",
+      "college": "Cpi",
+      "gender": "male",
+      "github": "https://github.com/YashBachwani"
+    },
+    {
+      "name": "Jeet Pitale",
+      "email": "jeetdipakpitale1107@gmail.com",
+      "college": "Cpi",
+      "gender": "male",
+      "github": "https://github.com/JeetPitale"
+    }
+  ],
+  "DeBuggers": [
+    {
+      "name": "KRISH PATEL",
+      "email": "KRISHPATEL.CO22D2@SCET.AC.IN",
+      "college": "SARVAJANIK COLLEGE OF ENGINEERING AND TECHNOLOGY",
+      "gender": "male",
+      "github": "https://github.com/krish-3011"
+    },
+    {
+      "name": "DIVIJ PATEL",
+      "email": "DIVIJPATEL.CO22D2@SCET.AC.IN",
+      "college": "SARVAJANIK COLLEGE OF ENGINEERING AND TECHNOLOGY",
+      "gender": "male",
+      "github": "https://github.com/DIVIJ0807"
+    },
+    {
+      "name": "MANN PATEL",
+      "email": "MANNPATEL.CO22D2@SCET.AC.IN",
+      "college": "SARVAJANIK COLLEGE OF ENGINEERING AND TECHNOLOGY",
+      "gender": "male",
+      "github": "https://github.com/MannPatel-1207"
+    },
+    {
+      "name": "MEET PATEL",
+      "email": "MEETPATEL.CO22D2@SCET.AC.IN",
+      "college": "SARVAJANIK COLLEGE OF ENGINEERING AND TECHNOLOGY",
+      "gender": "male",
+      "github": "https://github.com/Meet7773"
+    }
+  ],
+  "Interlopers": [
+    {
+      "name": "Suyog Sable",
+      "email": "suyogsable3@gmail.com",
+      "college": "SIWS",
+      "gender": "male",
+      "github": "https://github.com/Suyog-Sable"
+    },
+    {
+      "name": "Shubham Bendre",
+      "email": "shubhambendre04@gmail.com",
+      "college": "SIWS",
+      "gender": "male",
+      "github": "https://github.com/Shubham-Bendre"
+    },
+    {
+      "name": "Yash Chougule",
+      "email": "ychougule408@gmail.com",
+      "college": "SIWS",
+      "gender": "male",
+      "github": "https://github.com/YxASH"
+    },
+    {
+      "name": "Malhar Singh",
+      "email": "malhar.singh2004@gmail.com",
+      "college": "SIWS",
+      "gender": "male",
+      "github": "https://github.com/Malhar2400"
+    }
+  ],
+  "Dopamine": [
+    {
+      "name": "Shubham Kadu",
+      "email": "kadushubham660@gmail.com",
+      "college": "Nutan College of Engineering And Research",
+      "gender": "male",
+      "github": "https://github.com/shubz007"
+    },
+    {
+      "name": "Sagar Lonkar",
+      "email": "Sagarlonkar75@gmail.com",
+      "college": "Nutan College of Engineering And Research",
+      "gender": "male",
+      "github": "https://github.com/SagarLonkar-18"
+    },
+    {
+      "name": "Sudarshan Kakad",
+      "email": "sudarshankakad7672@gmail.com",
+      "college": "Nutan College of Engineering And Research",
+      "gender": "male",
+      "github": "https://github.com/Sudarshan7672"
+    },
+    {
+      "name": "Saurav Kale",
+      "email": "Ksaurav4093@gmail.com",
+      "college": "Nutan College of Engineering And Research",
+      "gender": "male",
+      "github": "https://github.com/ksaurav24"
+    }
+  ],
+  "Byte Squad": [
+    {
+      "name": "MohammedSohail Shaikh",
+      "email": "smsohail027@gmail.com",
+      "college": "Theem College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Sohailforreal"
+    },
+    {
+      "name": "Jaivesh Vaidya",
+      "email": "jaiveshvaidya34@gmail.com",
+      "college": "Theem College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/JaiveshVaidya"
+    },
+    {
+      "name": "Dhrup Patil",
+      "email": "patildhrup28@gmail.com",
+      "college": "Theem College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/patildhrup"
+    },
+    {
+      "name": "Athang Masawkar",
+      "email": "athang151004@gmail.com",
+      "college": "Theem College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/AthangMasawkar"
+    }
+  ],
+  "Turing Bits": [
+    {
+      "name": "Rehbar Khan",
+      "email": "rehbarkhan.2711@gmail.com",
+      "college": "Rizvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/thisisarsh1"
+    },
+    {
+      "name": "Abhishek Khadgi",
+      "email": "khadgiabhishek51@gmail.com",
+      "college": "SIES College of management",
+      "gender": "male",
+      "github": "https://github.com/abhis-hek"
+    },
+    {
+      "name": "Noor Chauhan",
+      "email": "numerchauhan@gmail.com",
+      "college": "Rizvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/noorchauhan"
+    },
+    {
+      "name": "Fareed Sayed",
+      "email": "fareedsayed95@gmail.com",
+      "college": "Rizvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Fareed95"
+    }
+  ],
+  "TechSpark": [
+    {
+      "name": "Aaron Mendonca",
+      "email": "aaronmendonca02@gmail.com",
+      "college": "DJ Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/DragonRider01598/"
+    },
+    {
+      "name": "Rohit Parmar",
+      "email": "rohitghost5050@gmail.com",
+      "college": "DJ Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/RohitParmar-17"
+    },
+    {
+      "name": "Nilay Koul",
+      "email": "koulnilay28@gmail.com",
+      "college": "DJ Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Nilay-28"
+    },
+    {
+      "name": "Himanshu Gohil",
+      "email": "himanshugohil405@gmail.com",
+      "college": "DJ Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/himanshugohil10"
+    }
+  ],
+  "ByteFuse": [
+    {
+      "name": "Adarsh Mane",
+      "email": "onlyaddy68@gmail.com",
+      "college": "pillai college of engineering",
+      "gender": "male",
+      "github": "https://github.com/Aadarsh-Mane"
+    },
+    {
+      "name": "Gaurav Pawar",
+      "email": "gauravpawar904@gmail.com",
+      "college": "pillai college of Engineering",
+      "gender": "male",
+      "github": "https://github.com/juggernaut03"
+    },
+    {
+      "name": "Sai Bhilare",
+      "email": "bhilaresai64@gmail.com",
+      "college": "pillai college of Engineering",
+      "gender": "male",
+      "github": "https://github.com/BhilareSai"
+    },
+    {
+      "name": "Asif Shaikh",
+      "email": "theshaikhasif03@gmail.com",
+      "college": "Lokmanya Tilak college of Engineering",
+      "gender": "male",
+      "github": "https://github.com/shaikhasif69"
+    }
+  ],
+  "DevineProtocol": [
+    {
+      "name": "Sarthak Deokar",
+      "email": "sarthakdeokar05@gmail.com",
+      "college": "Dr D Y Patil Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/ZizzleStark"
+    },
+    {
+      "name": "Dhiren Joshi",
+      "email": "dhirenjoshi2003@gmail.com",
+      "college": "Dr D Y Patil Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/dhiren-joshi"
+    }
+  ],
+  "The�Ctrl�Squad": [
+    {
+      "name": "Manas Chaubal",
+      "email": "manas.212528101@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Radbluelite"
+    },
+    {
+      "name": "Mukesh Billa",
+      "email": "mukesh.212508109@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/bmukesh23"
+    },
+    {
+      "name": "Vinayak Deore",
+      "email": "Vinayak.212558104@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Vinayakdeore09"
+    },
+    {
+      "name": "Shreenand Pandere",
+      "email": "shreenand.212808106@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Shreenand08"
+    }
+  ],
+  "Imperial": [
+    {
+      "name": "ishwari sangle",
+      "email": "sangleishwari1977@gmail.com",
+      "college": "K k wagh institute of engineering Nashik",
+      "gender": "female",
+      "github": "https://github.com/ishwari2277"
+    },
+    {
+      "name": "krishna patel",
+      "email": "patel.krishna.t@gmail.com",
+      "college": "K k wagh institute of engineering nashik",
+      "gender": "male",
+      "github": "https://github.com/Krishnap2k4"
+    },
+    {
+      "name": "vaibhav shinde",
+      "email": "vbshinde370822@kkwagh.edu.in",
+      "college": "K k wagh institute of engineering nashik",
+      "gender": "male",
+      "github": "https://github.com/VaibhavShinde5515"
+    },
+    {
+      "name": "lavanya zute",
+      "email": "lavanyazute@gmail.com",
+      "college": "K k wagh institute of engineering nashik",
+      "gender": "female",
+      "github": "https://github.com/LavanyaZute"
+    }
+  ],
+  "Team_AURA": [
+    {
+      "name": "Shoaib Akhtar",
+      "email": "shoaibakhtar6265@gmail.com",
+      "college": "Xavier Institute of Engineering",
+      "gender": "male",
+      "github": "https://github.com/shoaibAkhtar0001"
+    },
+    {
+      "name": "Tejas Kasarkar",
+      "email": "tejaskasarkar3@gmail.com",
+      "college": "Xavier Institute of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Tejasss20-AI"
+    },
+    {
+      "name": "Aarya Jadhav",
+      "email": "aaryajadhav175@gmail.com",
+      "college": "Xavier Institute of Engineering",
+      "gender": "male",
+      "github": "https://github.com/aarya0517"
+    },
+    {
+      "name": "Rishabh Kanojiya",
+      "email": "rishabhkanojiya9082@gmail.com",
+      "college": "Xavier Institute of Engineering",
+      "gender": "male",
+      "github": "https://github.com/RisHexx"
+    }
+  ],
+  "The Coffee Coders": [
+    {
+      "name": "Ashutosh Khadse",
+      "email": "ashutoshkhadse23@gmail.com",
+      "college": "K K Wagh Institute Of Engineering Education and Research",
+      "gender": "male",
+      "github": "https://github.com/AshutoshKhadse23"
+    },
+    {
+      "name": "Rushikesh Parkhe",
+      "email": "rushikeshparkhe018@gmail.com",
+      "college": "K K Wagh Institute Of Engineering Education and Research",
+      "gender": "male",
+      "github": "https://github.com/rushiparkhe18"
+    },
+    {
+      "name": "Jay Kotkar",
+      "email": "jvkotkar370822@kkwagh.edu.in",
+      "college": "K K Wagh Institute Of Engineering Education and Research",
+      "gender": "male",
+      "github": "https://github.com/jayykotkar1"
+    },
+    {
+      "name": "Neha Aher",
+      "email": "aherneha2004@gmail.com",
+      "college": "K K Wagh Institute Of Engineering Education and Research",
+      "gender": "female",
+      "github": "https://github.com/NehaVA23"
+    }
+  ],
+  "Delta": [
+    {
+      "name": "Richie Thomas",
+      "email": "richiebt2004@gmail.com",
+      "college": "Fr C Rodrigues Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/richiebthomas"
+    },
+    {
+      "name": "Ayush Nair",
+      "email": "nairayush45@gmail.com",
+      "college": "Fr C Rodrigues Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/AyushSNair/"
+    },
+    {
+      "name": "Anushka Sawant",
+      "email": "anugsawant@gmail.com",
+      "college": "Fr C Rodrigues Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/AnushkaaaaS"
+    },
+    {
+      "name": "Sanchi Tiwade",
+      "email": "sanchitiwade.08@gmail.com",
+      "college": "Fr C Rodrigues Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/Sanchi-0804"
+    }
+  ],
+  "Debug-Coders": [
+    {
+      "name": "Sanjana Choubey",
+      "email": "sanjanachoubey763@gmail.com",
+      "college": "Vivekanand Education Society Institute Technology",
+      "gender": "female",
+      "github": "https://github.com/Sanjana30789"
+    },
+    {
+      "name": "Sanika Jadhav",
+      "email": "sanika2875@gmail.com",
+      "college": "Vivekanand Education Society Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/AKINAS05"
+    },
+    {
+      "name": "Ashish Maurya",
+      "email": "maurya21ashish@gmail.com",
+      "college": "Vivekanand Education Society Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/Ashish-2458"
+    },
+    {
+      "name": "Sanjeev Desai",
+      "email": "sanjudesai1806@gmail.com",
+      "college": "Vivekanand Education Society Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/sanjeev-1806"
+    }
+  ],
+  "Ender Pearl": [
+    {
+      "name": "Anirudh S",
+      "email": "anirudh_22cb08@kgkite.ac.in",
+      "college": "KGiSL Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/anirudh-satheesh/anirudh-satheesh"
+    },
+    {
+      "name": "HariEashwar M",
+      "email": "harieashwar_22cb22@kgkite.ac.in",
+      "college": "KGiSL Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/HariEashwar"
+    },
+    {
+      "name": "Sanjeev AV",
+      "email": "sanjeev_22cb69le@kgkite.ac.in",
+      "college": "KGiSL Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/1developersanju"
+    },
+    {
+      "name": "Dharun S",
+      "email": "dharun_22cb19@kgkite.ac.in",
+      "college": "KGiSL Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/dharun-sukumar"
+    }
+  ],
+  "Algo Architects": [
+    {
+      "name": "Nagaraj Bhandare",
+      "email": "nagrajy131200350@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/Nagraj-13"
+    },
+    {
+      "name": "Rahul Lankeppanavar",
+      "email": "rahullankeppanavar363@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/RCOM363"
+    },
+    {
+      "name": "Rahul Patil",
+      "email": "rahulpatilpr483@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/RahulPatil003"
+    },
+    {
+      "name": "Nagaraj Bhandare",
+      "email": "nagrajbhandare1113@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/VERNOS-DEV"
+    }
+  ],
+  "SVS Devs": [
+    {
+      "name": "Sthvan Suroshi",
+      "email": "warmachine1817@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/Sthvan-Suroshi"
+    },
+    {
+      "name": "Vinay Rajaikar",
+      "email": "vinayrajaikar@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/vinayrajaikar"
+    },
+    {
+      "name": "Swapnil Jadhav",
+      "email": "swapniljadhav22811@gmail.com",
+      "college": "Jain College of Engineering and Research",
+      "gender": "male",
+      "github": "https://github.com/Swapnil0809"
+    }
+  ],
+  "Jetha ke Jabaaz": [
+    {
+      "name": "Harshit Bhanushali",
+      "email": "harshit.bhanushali22@spit.ac.ij",
+      "college": "Sardar Patel Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/HARSHITBHANUSHALI"
+    },
+    {
+      "name": "Vinayak Bhatia",
+      "email": "vinayak.bhatia22@spit.ac.in",
+      "college": "Sardar Patel Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/vvinayakkk"
+    },
+    {
+      "name": "Atharva Patil",
+      "email": "atharva.patil22@spit.ac.in",
+      "college": "Sardar Patel Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/atupatu"
+    },
+    {
+      "name": "Prasanna Pandharikar",
+      "email": "prasanna.pandharikar22@spit.ac.in",
+      "college": "Sardar Patel Institute of technology",
+      "gender": "male",
+      "github": "https://github.com/prasanna192005"
+    }
+  ],
+  "Team Glitch": [
+    {
+      "name": "Nikhil Gaikwad",
+      "email": "nikhilgaikwad9540@gmail.com",
+      "college": "st john college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/Nikhilgaikwad22"
+    },
+    {
+      "name": "Anway Kharsamble",
+      "email": "anwaykharsamble@gmail.com",
+      "college": "st john college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/Anway001"
+    },
+    {
+      "name": "Divyanshu Bhoir",
+      "email": "divyanshubhoir123@gmail.com",
+      "college": "st john college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/DivyanshuBhoir"
+    },
+    {
+      "name": "Onkar Aradhye",
+      "email": "122onkar2005@sjcem.edu.in",
+      "college": "st john college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/onkararadhye"
+    }
+  ],
+  "WebWeavers": [
+    {
+      "name": "Durvesh Chaudhari",
+      "email": "durveshchaudhari11@gmail.com",
+      "college": "Vishwakarma Institute of Technology Pune",
+      "gender": "male",
+      "github": "https://github.com/MrDurvesh11"
+    },
+    {
+      "name": "Heramb Bhoodhar",
+      "email": "heramb.bhoodhar@gmail.com",
+      "college": "Vishwakarma Institute of Technology Pune",
+      "gender": "male",
+      "github": "https://github.com/Heramb4270"
+    },
+    {
+      "name": "Amey Pathe",
+      "email": "ameypte@gmail.com",
+      "college": "Vishwakarma Institute of Technology Pune",
+      "gender": "male",
+      "github": "https://github.com/ameypte"
+    },
+    {
+      "name": "Bhavesh Patil",
+      "email": "bhaveshxop@gmail.com",
+      "college": "Vishwakarma Institute of Technology Pune",
+      "gender": "male",
+      "github": "https://github.com/bhaveshxop"
+    }
+  ],
+  "Almaminds": [
+    {
+      "name": "Bhoomika Singh",
+      "email": "singhbhoomika-cmpn@atharvacoe.ac.in",
+      "college": "Atharva College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/loadinglit"
+    },
+    {
+      "name": "Dhruv Patel",
+      "email": "dhruvpatel150204@gmail.com",
+      "college": "Atharva College of engineering",
+      "gender": "male",
+      "github": "https://github.com/Venom150204"
+    },
+    {
+      "name": "Rohit Mondal",
+      "email": "rohitmondal12130@gmail.com",
+      "college": "Atharva College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Rohitmondal12130"
+    },
+    {
+      "name": "Sahil Kavatkar",
+      "email": "sahilkavatkar@gmail.com",
+      "college": "Atharva College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Sahil-Kavatkar"
+    }
+  ],
+  "CodeCopter": [
+    {
+      "name": "Aditya Hakani",
+      "email": "adityahakani29@gmail.com",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/Adiittya"
+    },
+    {
+      "name": "Aryan Dhandhukiya",
+      "email": "dhandhukiyaaryan05@gmail.com",
+      "college": "Thakur College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/aryandhandhukiya"
+    },
+    {
+      "name": "Jainam Barbhaya",
+      "email": "jainambarbhaya1509@gmail.com",
+      "college": "SVKM Dwarkadas J Sanghvi College of Engineering",
+      "gender": "male",
+      "github": "https://www.github.com/jainambarbhaya1509"
+    },
+    {
+      "name": "Anus Khatri",
+      "email": "khatrianas15@gmail.com",
+      "college": "Fr Conceicao Rodrigues College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/anuskhatri"
+    }
+  ],
+  "Byte Smashers": [
+    {
+      "name": "Gaurav Masand",
+      "email": "masandgaurav231@gmail.com",
+      "college": "Dr DY Patil Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/gauravmasand"
+    },
+    {
+      "name": "Kalpesh Sananse",
+      "email": "sanansekalpesh9@gmail.com",
+      "college": "G H Raisoni college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/Kalpesh-Sananse"
+    },
+    {
+      "name": "Chinmay Karodpati",
+      "email": "karodpatichinmay12@gmail.com",
+      "college": "Dr DY Patil Institute of Management and Research",
+      "gender": "male",
+      "github": "https://github.com/Chinmayk12"
+    },
+    {
+      "name": "Jayesh Patil",
+      "email": "jayeshpatilofficial18@gmail.com",
+      "college": "G H Raisoni college of engineering and management",
+      "gender": "male",
+      "github": "https://github.com/JayeshPatil18"
+    }
+  ],
+  "NemoHacks": [
+    {
+      "name": "Keyur Mistry",
+      "email": "keyur.mm@somaiya.edu",
+      "college": "K J Somaiya Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/KeyurMistry123"
+    },
+    {
+      "name": "Adrita Banerjee",
+      "email": "adrita.b@somaiya.edu",
+      "college": "K J Somaiya Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/itsadrita"
+    },
+    {
+      "name": "Gargi Bendale",
+      "email": "gargi.b@somaiya.edu",
+      "college": "K J Somaiya Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/gargibendale"
+    },
+    {
+      "name": "Shreyash Gupta",
+      "email": "shreyash.gupta@somaiya.edu",
+      "college": "K J Somaiya Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/SHREYASH1204"
+    }
+  ],
+  "Baymax Bots": [
+    {
+      "name": "Akshata Khandekar",
+      "email": "akshata18.2004@gmail.com",
+      "college": "AP Shah Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/Akshataa1804"
+    },
+    {
+      "name": "Mohini Deore",
+      "email": "mohinideore5@gmail.com",
+      "college": "AP Shah Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/MohiniDeore"
+    },
+    {
+      "name": "Abhimanyu Deshmukh",
+      "email": "abhimanyupdesh815jnv@gmail.com",
+      "college": "AP Shah Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/Baking-brain"
+    },
+    {
+      "name": "Yash Baviskar",
+      "email": "yashbav24@gmail.com",
+      "college": "AP Shah Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/YashBaviskar1"
+    }
+  ],
+  "Moh-Maya": [
+    {
+      "name": "Sanskruti Mhatre",
+      "email": "mhatresanskruti42@gmail.com",
+      "college": "A P Shah Institute of Technology",
+      "gender": "female",
+      "github": "https://github.com/SanskrutiMhatre"
+    },
+    {
+      "name": "AMMAR NAGARJI",
+      "email": "ammarnagarji313@gmail.com",
+      "college": "A P Shah Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/ammar4848"
+    },
+    {
+      "name": "Shreyash Pawar",
+      "email": "shreyashrpawar28@gmail.com",
+      "college": "A P Shah Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/shreyashrpawar"
+    },
+    {
+      "name": "Bharat Sharma",
+      "email": "bharatsharma98971@gmail.com",
+      "college": "A P Shah Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/bhar1gitr"
+    }
+  ],
+  "TRITECH WIZARDS": [
+    {
+      "name": "Mittrav Shah",
+      "email": "mittrav.212114101@vcet.edu.in",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/Maskifer001"
+    },
+    {
+      "name": "Meet Dodiya",
+      "email": "dodiyameet041@gmail.com",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/MeetDOD"
+    },
+    {
+      "name": "REHMAN KHAN",
+      "email": "rehman.khan.300a@gmail.com",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/Slacky300"
+    }
+  ],
+  "BYTEBENDERS": [
+    {
+      "name": "Yash Ganar",
+      "email": "yashganar91@gmail.com",
+      "college": "Universal College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/yashganar90"
+    },
+    {
+      "name": "Lee Henriques",
+      "email": "2401henriqueslee@gmail.com",
+      "college": "Universal College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/HenriquesLee"
+    },
+    {
+      "name": "Priti Singh",
+      "email": "pritisingh0904@gmail.com",
+      "college": "Universal College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/pritisingh-09"
+    },
+    {
+      "name": "Sudeesh Shetty",
+      "email": "sudheeshshetty92@gmail.com",
+      "college": "Universal College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/Sudheesh-07"
+    }
+  ],
+  "Sacred Scripts": [
+    {
+      "name": "Nishant Bhandigare",
+      "email": "nishantbhandigare@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/nishant-bhandigare"
+    },
+    {
+      "name": "Karan Sankhe",
+      "email": "sankhe00009@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Karansankhe"
+    },
+    {
+      "name": "Vivek Patel",
+      "email": "vivekpatel4049@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/drejt"
+    },
+    {
+      "name": "Gaurav Desale",
+      "email": "gauravdesale2020@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/GauravDesale08"
+    }
+  ],
+  "Innov8Coders": [
+    {
+      "name": "Sahil Sharma",
+      "email": "sahil.g.sharma7@gmail.com",
+      "college": "DJ Sanghvi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/sh-sahil"
+    },
+    {
+      "name": "Bhumit Mehta",
+      "email": "bhumitmehta2209@gmail.com",
+      "college": "DJ Sanghvi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/bhumitmehta"
+    },
+    {
+      "name": "Paarth Wakare",
+      "email": "paarth.wakare@protonmail.com",
+      "college": "DJ Sanghvi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/practice-grounds-wpaarth24"
+    },
+    {
+      "name": "Kanak Kadulkar",
+      "email": "kanakkadulkar@gmail.com",
+      "college": "DJ Sanghvi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/kanakkadulkar"
+    }
+  ],
+  "Techno Sync": [
+    {
+      "name": "Sujal Vishwakarma",
+      "email": "vishwakarmasujal68@gmail.com",
+      "college": "Viva Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/sujalvishwakarma22"
+    },
+    {
+      "name": "Anshu Jaiswal",
+      "email": "anshujaiswal119@gmail.com",
+      "college": "Viva Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/hacksmith010"
+    },
+    {
+      "name": "Mithilesh Vichare",
+      "email": "mithi.vk10102004@gmail.com",
+      "college": "Viva Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/Mithivk"
+    },
+    {
+      "name": "Adarsh Pandey",
+      "email": "adarshpandey9980@gmail.com",
+      "college": "Viva Institute of Technology",
+      "gender": "male",
+      "github": "https://github.com/AdarshPandey9980"
+    }
+  ],
+  "Byte Club": [
+    {
+      "name": "Prem Bhandugare",
+      "email": "Prem.04.bhandugare@gmail.com",
+      "college": "Thadomal Shahani Engineering College",
+      "gender": "male",
+      "github": "https://github.com/PremBhandugare"
+    },
+    {
+      "name": "Hrishikesh Dhuri",
+      "email": "hrishikesh.dhuri.201128@gmail.com",
+      "college": "Thadomal Shahani Engineering College",
+      "gender": "male",
+      "github": "https://github.com/Hrishikesh19032004"
+    },
+    {
+      "name": "Meet Raut",
+      "email": "meetraut3004@gmail.com",
+      "college": "Thadomal Shahani Engineering College",
+      "gender": "male",
+      "github": "https://github.com/MeetRaut"
+    },
+    {
+      "name": "Aryav Jain",
+      "email": "aryavjain170804@gmail.com",
+      "college": "Thadomal Shahani Engineering College",
+      "gender": "male",
+      "github": "https://github.com/AryavJain17"
+    }
+  ],
+  "NOT LIKE US": [
+    {
+      "name": "Tejas Salvi",
+      "email": "10088.aids@gmail.com",
+      "college": "Fr Conceicao Rodrigues College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/tylar1221"
+    },
+    {
+      "name": "Siddhant Jadhav",
+      "email": "sidak4712@gmail.com",
+      "college": "Fr Conceicao Rodrigues College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/siddhant210"
+    },
+    {
+      "name": "Abdussami Qazi",
+      "email": "qazisami76@gmail.com",
+      "college": "Fr Conceicao Rodrigues College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/AbdussamiQazi"
+    },
+    {
+      "name": "Aaren Solanki",
+      "email": "aaren.solanki@gmail.com",
+      "college": "Fr Conceicao Rodrigues College of Engineering",
+      "gender": "male",
+      "github": "https://github.com/aaren2044"
+    }
+  ],
+  "WEBMASTERS": [
+    {
+      "name": "Riteeka Gawand",
+      "email": "riteekagawand7@gmail.com",
+      "college": "VCET",
+      "gender": "female",
+      "github": "https://github.com/riteekagawand"
+    },
+    {
+      "name": "Aarchy Parekh",
+      "email": "aarchy.s237544201@vcet.edu.in",
+      "college": "VCET",
+      "gender": "female",
+      "github": "https://github.com/aarchyparekh25"
+    },
+    {
+      "name": "Siddhi Hate",
+      "email": "siddhi.s237504209@vcet.edu.in",
+      "college": "VCET",
+      "gender": "female",
+      "github": "https://github.com/SiddhiHate13"
+    },
+    {
+      "name": "Sahil Shah",
+      "email": "sahil.223674101@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/SahilS1903"
+    }
+  ],
+  "Beyond Code": [
+    {
+      "name": "Sridhar Pillai",
+      "email": "sridharpillai75@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Sridhar1030"
+    },
+    {
+      "name": "Pavan Rasal",
+      "email": "pavanrasal4@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Pavan-0228"
+    },
+    {
+      "name": "Shubham Singh",
+      "email": "shubhams50876@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Shubham-CDFX19"
+    },
+    {
+      "name": "Sangini Shetty",
+      "email": "sanginijshetty@gmail.com",
+      "college": "VCET",
+      "gender": "female",
+      "github": "https://github.com/SanginiShetty"
+    }
+  ],
+  "NASA": [
+    {
+      "name": "Nikki Mehta",
+      "email": "nikkimehta2807@gmail.com",
+      "college": "SVKMs Dwarkadas Jivanlal Sanghvi College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/nikkiii2807"
+    },
+    {
+      "name": "Arya Gawde",
+      "email": "aryagawde004@gmail.com",
+      "college": "SVKMs Dwarkadas Jivanlal Sanghvi College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/AryaG26"
+    },
+    {
+      "name": "Ashna Aglawe",
+      "email": "ashna.aglawe@gmail.com",
+      "college": "SVKMs Dwarkadas Jivanlal Sanghvi College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/AshnaAglawe"
+    },
+    {
+      "name": "Sakshi Patel",
+      "email": "sakshipatel.official@gmail.com",
+      "college": "SVKMs Dwarkadas Jivanlal Sanghvi College of Engineering",
+      "gender": "female",
+      "github": "https://github.com/SakshiPatel7"
+    }
+  ],
+  "Alt+Ctrl+Win": [
+    {
+      "name": "Dnyanesh Panchal",
+      "email": "dnyanesh.225017108@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Dnyanesh2709"
+    },
+    {
+      "name": "Ayush Mayekar",
+      "email": "ayush.224947101@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/AyushMayekar"
+    },
+    {
+      "name": "Yash Mayekar",
+      "email": "yash.224957105@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/yashmayekar"
+    },
+    {
+      "name": "Nitish Jha",
+      "email": "nitish.224827101@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/nitish12382"
+    }
+  ],
+  "HackShacks": [
+    {
+      "name": "Vanshik Waghela",
+      "email": "vanshw04@gmail.com",
+      "college": "DJ Sanghavi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/VanshikWaghela"
+    },
+    {
+      "name": "Meet Vaidya",
+      "email": "vaidyameet2004@gmail.com",
+      "college": "DJ Sanghavi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/meetVaidya"
+    },
+    {
+      "name": "Riya Chawan",
+      "email": "riyaachavan08@gmail.com",
+      "college": "DJ Sanghavi College Of Engineering",
+      "gender": "female",
+      "github": "https://github.com/RiyaaChavan"
+    },
+    {
+      "name": "Naman Surana",
+      "email": "namansurana32@gmail.com",
+      "college": "DJ Sanghavi College Of Engineering",
+      "gender": "male",
+      "github": "https://github.com/NS32-oss"
+    }
+  ],
+  "MahaDev": [
+    {
+      "name": "Vrusharth Nirmal",
+      "email": "vrusharthnirmal0000@gmail.com",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/Vrusharth"
+    },
+    {
+      "name": "Sharvesh Singh",
+      "email": "sharvesh.211573101@vcet.edu.in",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/ss6239620"
+    },
+    {
+      "name": "Soham Patil",
+      "email": "soham.211453112@vcet.edu.in",
+      "college": "Vidyavardhinis College of Engineering and Technology",
+      "gender": "male",
+      "github": "https://github.com/sohampatil4101"
+    }
+  ],
+  "Code Crushers": [
+    {
+      "name": "Harsh Jadhav",
+      "email": "harshjadhav0814@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/harryJ290"
+    },
+    {
+      "name": "Umesh Jadhav",
+      "email": "umesh2005jadhav@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/umeshjadhav123"
+    },
+    {
+      "name": "Saish Bagwe",
+      "email": "saish.223164101@vcet.edu.in",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/programmer-cmyk"
+    },
+    {
+      "name": "Nikhil Sarak",
+      "email": "nikhilsarak612w@gmail.com",
+      "college": "VCET",
+      "gender": "male",
+      "github": "https://github.com/Nikhil4123"
+    }
+  ]
+}
