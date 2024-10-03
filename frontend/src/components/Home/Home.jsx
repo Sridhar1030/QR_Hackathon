@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
-import TeamDetailsPopup from "../TeamDetailsPopup";
-import PersonalDetailsPopup from "../PersonalDetailsPopup";
-import GamesPopup from "../GamesPopup";
-import QRCode from "qrcode";
-import image from "../../../dist/Blank_board.png"
-import MapPopup from "../MapPopup";
+  import React, { useEffect, useState } from "react";
+  import { Navigate, useNavigate } from "react-router-dom";
+  import axios from "axios";
+  import TeamDetailsPopup from "../TeamDetailsPopup";
+  import PersonalDetailsPopup from "../PersonalDetailsPopup";
+  import GamesPopup from "../GamesPopup";
+  import image from "../Blank_board.svg";
+  import MapPopup from "../MapPopup";
 
 const Homepage = () => {
   const [userData, setUserData] = useState(null);
