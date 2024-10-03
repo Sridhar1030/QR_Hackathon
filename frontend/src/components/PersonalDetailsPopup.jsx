@@ -79,10 +79,6 @@ const PersonalDetailsPopup = ({ isOpen, onClose, userDetails }) => {
                                 </span>{" "}
                                 {userDetails.teamName}
                             </p>
-                            <p className="text-sm">
-                                <span className="font-semibold">Role:</span>{" "}
-                                {userDetails.role}
-                            </p>
                             <a
                                 href={userDetails.github}
                                 target="_blank"

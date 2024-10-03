@@ -199,8 +199,6 @@ export const getAllUser = async (req, res) => {
     const page = parseInt(req.query.page) || 1;  
     const limit = parseInt(req.query.limit) || 5; 
 
-    console.log(process.env.Admin_Email)
-    console.log("object",adminEmail)
 
     if (adminEmail !== process.env.Admin_Email) {
         return res.status(401).json({ message: "Unauthorized access." });
