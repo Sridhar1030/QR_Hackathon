@@ -142,7 +142,7 @@ const sendEmail = async (recipient_email, password, name) => {
                                     <p><strong>Email:</strong> <span class="highlight">${recipient_email}</span></p>
                                     <p><strong>Password:</strong> <span class="highlight">${password}</span></p>
                                 </div>
-                                <center><a href="https://qr-hackathon.vercel.app/" class="button">Access Hackathon Portal</a></center>
+                                <center><a href="http://meal.vcet-hackathon.com/" class="button">Access Hackathon Portal</a></center>
                                 <p>If you need assistance, contact our support team:</p>
                                 <p>QR code-related issues: Pavan Rasal (+91 87664 32949), Sridhar Pillai (+91 84217 86901)</p>
                                 <p>Technical issues: Karan Gandhi (+91 88309 79209), Sahil Chalke (+91 90225 16901)</p>
