@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import cron from "node-cron";
 import shell from "shelljs";
 
@@ -14,8 +15,15 @@ app.use(
 	})
 );
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
+const buildPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(buildPath));
 
 // const emailListPath = path.join(process.cwd(), "participantsGrouped.json"); // Adjust the path as needed
 // let participantEmails = [];
@@ -45,5 +53,17 @@ app.get("/", (req, res) => {
 import { userRoutes } from "./routes/user.routes.js";
 
 app.use("/api/users", userRoutes);
+
+
+app.get("/*", function (req, res) {
+    res.sendFile(
+        path.join(__dirname, "../frontend/dist/index.html"),
+        function (err) {
+            if (err) {
+                res.status(500).send(err);
+            }
+        }
+    );
+});
 
 export { app };
