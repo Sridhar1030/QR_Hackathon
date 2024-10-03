@@ -31,7 +31,6 @@ const Homepage = () => {
           `${backendUrl}/api/users/getUserDetailsById/${userId}`
         );
         setUserData(response.data.user);
-        console.log(response.data.user);
       } catch (error) {
         console.error("Error fetching user data", error);
         setError("Failed to load user data. Please try logging in again.");
@@ -44,18 +43,38 @@ const Homepage = () => {
 
   const updateCurrentMeal = () => {
     const now = new Date();
+    const currentDate = now.toLocaleDateString();
+    const day1 = new Date('2024-10-03').toLocaleDateString();
+    const day2 = new Date('2024-10-04').toLocaleDateString();
     const hour = now.getHours();
+    const minute = now.getMinutes();
 
-    if (hour >= 6 && hour < 10) {
-      setCurrentMeal("breakfast1");
-    } else if (hour >= 10 && hour < 12) {
-      setCurrentMeal("breakfast2");
-    } else if (hour >= 12 && hour < 15) {
-      setCurrentMeal("lunch");
-    } else if (hour >= 18 && hour < 21) {
-      setCurrentMeal("dinner");
+    if (currentDate === day1) {
+      // Day 1 timings
+      if (hour === 9 && minute >= 0 && minute < 60) {
+        setCurrentMeal("breakfast1");
+      } else if ((hour === 12 && minute >= 0) || (hour >= 1 && hour < 14) || (hour === 14 && minute < 60)) {
+        setCurrentMeal("lunch1");
+      } else if (hour === 17 && minute >= 15 && minute < 60) {
+        setCurrentMeal("snacks");
+      } else if (hour === 20 && minute >= 0 && minute < 120) {
+        setCurrentMeal("dinner");
+      } else {
+        setCurrentMeal(null);
+      }
+    }
+
+    else if (currentDate === day2) {
+      // Day 2 timings
+      if (hour === 8 && minute >= 0 && minute < 60) {
+        setCurrentMeal("breakfast2");
+      } else if ((hour === 12 && minute >= 0) || (hour >= 1 && hour < 17) || (hour === 17 && minute < 60)) {
+        setCurrentMeal("lunch2");
+      } else {
+        setCurrentMeal(null);
+      }
     } else {
-      setCurrentMeal(null);
+      setCurrentMeal(null); // No meals available on other days
     }
   };
 
@@ -64,7 +83,6 @@ const Homepage = () => {
   };
 
   const handleImageError = () => {
-    console.error("Failed to load background image");
     setImageLoaded(false);
   };
 
@@ -82,7 +100,6 @@ const Homepage = () => {
         setError("Failed to load team details. Please try again.");
       }
     } else {
-      console.error("Team name not available");
       setError("Team name not available. Please update your profile.");
     }
   };
@@ -95,23 +112,10 @@ const Homepage = () => {
     setIsGamesPopupOpen(true);
   };
 
-
-  const link = "https://youtu.be/dQw4w9WgXcQ?si=Z89EeRG8ovOojrhk"
-  const qrData =
-  {
-    userId: userData?._id,
-    meal: currentMeal,
-    youtube: link
-  }
-  console.log(qrData)
-
   const handleMealClick = async () => {
-    console.log("meal", qrData)
-    const qrCode = await QRCode.toDataURL(JSON.stringify(qrData))
-    console.log(qrCode)
-    console.log("Meal Clicked")
-    navigate('/qrcode', { state: { qrCodeUrl: qrCode, currentMeal } })
-  }
+    navigate('/qrcode');
+  };
+
   if (error) {
     return (
       <div className="flex flex-col h-screen bg-gray-100 items-center justify-center p-4">
@@ -210,7 +214,5 @@ const Button = ({ children, onClick, bgColor, textColor = "text-white", hoverCol
     {children}
   </button>
 );
-
-
 
 export default Homepage;
