@@ -12,12 +12,22 @@ const AdminDashboardSchema = new Schema(
             required: true,
             default: 0,
         },
-        lunchCount: {
+        lunch1Count: {
             type: Number,
             required: true,
             default: 0,
         },
         dinnerCount: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
+        snacksCount: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
+        lunch2Count: {
             type: Number,
             required: true,
             default: 0,
