@@ -18,9 +18,6 @@ const QrScannerComponent = () => {
         const scannedText = data.text;
         const parsedData = JSON.parse(scannedText);
 
-        console.log(parsedData);
-        console.log("Scanned Id:", parsedData.userId);
-
         setQrData(parsedData); // Store scanned data
 
         const adminEmail = localStorage.getItem("email");
@@ -28,14 +25,12 @@ const QrScannerComponent = () => {
         const id = parsedData.userId;
         const meal = parsedData.meal;
 
-        console.log("adminEmail", adminEmail);
 
         const response = {
           id,
           adminEmail: cleanedEmail,
           meal,
         };
-        console.log("response", response);
 
         const apiResponse = await axios.post(`${backendUrl}/api/users/scan`, response);
 
@@ -51,7 +46,6 @@ const QrScannerComponent = () => {
           // Navigate to success page
           navigate("/successPage", { state: { userId: parsedData.userId, meal: parsedData.meal } });
         } else {
-          console.log("already Scanned", apiResponse);
           toast.warn("This QR code has already been scanned."); // Notify user about already scanned code
 
           // Activate cooldown even for already scanned QR codes
@@ -62,7 +56,6 @@ const QrScannerComponent = () => {
           }, 5000); // 15 seconds cooldown
         }
       } catch (error) {
-        console.error("Error parsing scanned data or in API request:", error);
         toast.error("An error occurred while processing the scan."); // Show a toast notification for errors
 
         // Activate cooldown on error as well
@@ -77,7 +70,6 @@ const QrScannerComponent = () => {
   };
 
   const handleError = (err) => {
-    console.error("QR code scanning error:", err);
     toast.error("Scanning error occurred. Please try again."); // Show a toast notification for scanning errors
 
     // Activate cooldown on scanning error as well
@@ -88,7 +80,6 @@ const QrScannerComponent = () => {
     }, 5000); // 15 seconds cooldown
   };
 
-  console.log(qrData);
 
   const previewStyle = {
     width: "100%",

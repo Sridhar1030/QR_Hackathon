@@ -57,12 +57,16 @@ export const signUpUser = async (req, res) => {
         }
 
         for (const member of members) {
-            const firstTwo = member.phoneNumber.substring(0, 2);
-            const lastTwo = member.phoneNumber.substring(
-                member.phoneNumber.length - 2
-            );
+            const phoneLength = member.phoneNumber.length;
 
-            const password = firstTwo + lastTwo;
+            const firstTwo = member.phoneNumber.substring(0, 2);
+
+            const middleIndex = Math.floor(phoneLength / 2);
+            const middleTwo = member.phoneNumber.substring(middleIndex - 1, middleIndex + 1);
+
+            const lastTwo = member.phoneNumber.substring(phoneLength - 2);
+
+            const password = firstTwo + middleTwo + lastTwo;
 
             const newUser = new User({
                 username: member.name,
@@ -187,5 +191,39 @@ export const getUserDetailsById = async (req, res) => {
         return res.status(200).json({ message: "user Details", user });
     } catch (error) {
         res.status(500).json({ message: "An error occurred", error });
+    }
+};
+
+export const getAllUser = async (req, res) => {
+    const { adminEmail } = req.body;
+    const page = parseInt(req.query.page) || 1;  
+    const limit = parseInt(req.query.limit) || 5; 
+
+    console.log(process.env.Admin_Email)
+    console.log("object",adminEmail)
+
+    if (adminEmail !== process.env.Admin_Email) {
+        return res.status(401).json({ message: "Unauthorized access." });
+    }
+
+    try {
+        const skip = (page - 1) * limit;
+
+        const users = await User.find()
+            .skip(skip)
+            .limit(limit)
+            .select("username email teamName -_id")
+            .sort({createdAt: -1})
+
+        const totalUsers = await User.countDocuments();
+
+        return res.status(200).json({
+            currentPage: page,
+            totalPages: Math.ceil(totalUsers / limit),
+            totalUsers,
+            users,
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error.", error });
     }
 };

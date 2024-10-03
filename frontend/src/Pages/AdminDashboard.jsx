@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import { Navigate, useNavigate } from 'react-router-dom'; // For navigation
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -96,12 +96,26 @@ const AdminDashboard = () => {
             <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
 
             {/* Scanner Button */}
-            <button
-                className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 mb-8"
-                onClick={handleScannerClick}
-            >
-                Scanner
-            </button>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 p-4">
+                <button
+                    className="w-full sm:w-auto px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 transition-colors duration-200"
+                    onClick={handleScannerClick}
+                >
+                    Scanner
+                </button>
+                <button
+                    className="w-full sm:w-auto px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 transition-colors duration-200"
+                    onClick={() => navigate("/userlist")}
+                >
+                    User List
+                </button>
+                <button
+                    className="w-full sm:w-auto px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 transition-colors duration-200"
+                    onClick={() => navigate("/signup")}
+                >
+                    Signup
+                </button>
+            </div>
 
             {/* Table */}
             <div className="mb-8">

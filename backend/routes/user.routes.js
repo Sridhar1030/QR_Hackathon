@@ -6,6 +6,7 @@ import {
     getUser,
     getTeamDetailsByTeamName,
     getUserDetailsById,
+    getAllUser,
 } from "../controllers/user.controllers.js";
 import {
     adminScan,
@@ -22,5 +23,6 @@ userRoutes.post("/getTeamDetailsByTeamName", getTeamDetailsByTeamName);
 userRoutes.post("/scan", adminScan);
 userRoutes.post("/getMealCounts", getMealCounts);
 userRoutes.get("/getUserDetailsById/:_id", getUserDetailsById);
+userRoutes.post("/getAllUser" , getAllUser)
 
 export { userRoutes };

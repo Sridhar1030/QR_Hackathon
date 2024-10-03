@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRou
 import NotFoundPage from "./Pages/NotFoundPage.jsx";
 import SignupPage from "./components/Auth/SignupPage.jsx";
 import AdminDashboard from "./Pages/AdminDashboard.jsx";
+import UserList from "./components/UserList.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -62,6 +63,15 @@ const router = createBrowserRouter(
                 element={
                     <ProtectedRoute
                         element={<SignupPage />}
+                        allowedRoles={["admin"]}
+                    />
+                }
+            />
+            <Route
+                path="/userlist"
+                element={
+                    <ProtectedRoute
+                        element={<UserList />}
                         allowedRoles={["admin"]}
                     />
                 }
