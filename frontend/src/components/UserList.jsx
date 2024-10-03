@@ -16,7 +16,7 @@ const UserList = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.post(`${backendUrl}/api/users/getAllUser?page=${page}&limit=15`, {
+            const response = await axios.post(`${backendUrl}/api/users/getAllUser?page=${page}&limit=30`, {
                 adminEmail: cleanedEmail,
             });
             setUsers(response.data.users);

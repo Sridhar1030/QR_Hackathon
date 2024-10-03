@@ -123,11 +123,15 @@ export const getMealCounts = async (req, res) => {
             return res.status(404).json({ message: "Dashboard not found." });
         }
 
+        const totalUsers = await User.countDocuments();
+
+
         return res.status(200).json({
             breakfast1Count: dashboard.breakfast1Count,
             breakfast2Count: dashboard.breakfast2Count,
             lunchCount: dashboard.lunchCount,
             dinnerCount: dashboard.dinnerCount,
+            totalUsers,
         });
     } catch (error) {
         console.error(error);
