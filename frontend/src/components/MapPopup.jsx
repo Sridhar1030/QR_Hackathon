@@ -90,7 +90,8 @@ const MapPopup = ({ isOpen, onClose }) => {
                             d="M6 18L18 6M6 6l12 12"
                         ></path>
                     </svg>
-                </button>
+                </button> 
+
 
                 {/* Zoom Buttons */}
                 <div className="absolute top-2 left-2 z-10 space-x-2">
