@@ -75,7 +75,9 @@ export const adminScan = async (req, res) => {
                 const newDashboard = new AdminDashboard({
                     breakfast1Count: meal === 'breakfast1' ? 1 : 0,
                     breakfast2Count: meal === 'breakfast2' ? 1 : 0,
-                    lunchCount: meal === 'lunch' ? 1 : 0,
+                    lunchCount: meal === 'lunch1' ? 1 : 0,
+                    dinnerCount: meal === 'lunch2' ? 1 : 0,
+                    dinnerCount: meal === 'snacks' ? 1 : 0,
                     dinnerCount: meal === 'dinner' ? 1 : 0,
                 });
                 await newDashboard.save();
@@ -85,10 +87,14 @@ export const adminScan = async (req, res) => {
                     dashboard.breakfast1Count += 1;
                 } else if (meal === 'breakfast2') {
                     dashboard.breakfast2Count += 1;
-                } else if (meal === 'lunch') {
-                    dashboard.lunchCount += 1;
+                } else if (meal === 'lunch1') {
+                    dashboard.lunch1Count += 1;  
+                } else if (meal === 'lunch2') {
+                    dashboard.lunch2Count += 1;  
                 } else if (meal === 'dinner') {
                     dashboard.dinnerCount += 1;
+                } else if (meal === 'snacks') {
+                    dashboard.snacksCount += 1;  
                 }
                 await dashboard.save();
             }
@@ -123,18 +129,19 @@ export const getMealCounts = async (req, res) => {
             return res.status(404).json({ message: "Dashboard not found." });
         }
 
-        const totalUsers = await User.countDocuments();
-
+        const totalUsers = await User.countDocuments(); 
 
         return res.status(200).json({
             breakfast1Count: dashboard.breakfast1Count,
             breakfast2Count: dashboard.breakfast2Count,
-            lunchCount: dashboard.lunchCount,
+            lunch1Count: dashboard.lunch1Count,  
+            lunch2Count: dashboard.lunch2Count,  
             dinnerCount: dashboard.dinnerCount,
+            snacksCount: dashboard.snacksCount,  
             totalUsers,
         });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Server error."});
-	}	
+        return res.status(500).json({ message: "Server error." });
+    }
 };

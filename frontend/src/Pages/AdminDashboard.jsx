@@ -28,12 +28,15 @@ ChartJS.register(
 );
 
 const AdminDashboard = () => {
-  const [mealData, setMealData] = useState({
-    breakfast1Count: 0,
-    breakfast2Count: 0,
-    lunchCount: 0,
-    dinnerCount: 0,
-  });
+    const [mealData, setMealData] = useState({
+        breakfast1Count: 0,
+        breakfast2Count: 0,
+        lunch1Count: 0, 
+        lunch2Count: 0,   
+        dinnerCount: 0,
+        snacksCount: 0,   
+    });
+    
 
   const adminEmail = JSON.parse(localStorage.getItem("email"));
   const navigate = useNavigate(); // To handle redirection
@@ -77,12 +80,35 @@ const breakfast1Count = {
     ],
   };
 
-  const lunchCount = {
+  const lunch1Count = {
     labels: ["Users who haven't eaten", "Users who have eaten"], // Clearer labels
     datasets: [
       {
         label: "",
-        data: [mealData.totalUsers - mealData.lunchCount , mealData.lunchCount],
+        data: [mealData.totalUsers - mealData.lunch1Count , mealData.lunch1Count],
+        backgroundColor: ["#FF6384", "#36A2EB"], 
+        hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+      },
+    ],
+  };
+  const lunch2Count = {
+    labels: ["Users who haven't eaten", "Users who have eaten"], // Clearer labels
+    datasets: [
+      {
+        label: "",
+        data: [mealData.totalUsers - mealData.lunch2Count , mealData.lunch2Count],
+        backgroundColor: ["#FF6384", "#36A2EB"], 
+        hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+      },
+    ],
+  };
+
+  const snacksCount = {
+    labels: ["Users who haven't eaten", "Users who have eaten"], // Clearer labels
+    datasets: [
+      {
+        label: "",
+        data: [mealData.totalUsers - mealData.snacksCount , mealData.snacksCount],
         backgroundColor: ["#FF6384", "#36A2EB"], 
         hoverBackgroundColor: ["#FF6384", "#36A2EB"],
       },
@@ -204,7 +230,11 @@ const breakfast1Count = {
             </tr>
             <tr className="border-b border-gray-200">
               <td className="py-3 px-6">Day 1 Lunch</td>
-              <td className="py-3 px-6">{mealData.lunchCount}</td>
+              <td className="py-3 px-6">{mealData.lunch1Count}</td>
+            </tr>
+            <tr className="border-b border-gray-200">
+              <td className="py-3 px-6">Day 1 snacks</td>
+              <td className="py-3 px-6">{mealData.snacksCount}</td>
             </tr>
             <tr className="border-b">
               <td className="py-3 px-6">Day 1 Dinner</td>
@@ -214,29 +244,48 @@ const breakfast1Count = {
               <td className="py-3 px-6">Day 2 Breakfast</td>
               <td className="py-3 px-6">{mealData.breakfast2Count}</td>
             </tr>
+            <tr className="border-b border-gray-200">
+              <td className="py-3 px-6">Day 2 Lunch</td>
+              <td className="py-3 px-6">{mealData.lunch2Count}</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       {/* Bar Graph */}
-      <div className="grid grid-cols-2 gap-10 ">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Day 1 Breakfast Counts Bar Graph</h2>
-          <Pie data={breakfast1Count} options={options} />
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Day 1 Meal Counts Bar Graph</h2>
-          <Pie data={lunchCount} options={options} />
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Day 1 Lunch Counts Bar Graph</h2>
-          <Pie data={dinnerCount} options={options} />
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Day 2 Breakfast    Counts Bar Graph</h2>
-          <Pie data={breakfast2Count} options={options} />
-        </div>
-      </div>
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 1 Breakfast Counts Bar Graph</h2>
+        <Pie data={breakfast1Count} options={options} />
+    </div>
+
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 1 Lunch Counts Bar Graph</h2>
+        <Pie data={lunch1Count} options={options} />
+    </div>
+
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 1 Snacks Counts Bar Graph</h2>
+        <Pie data={snacksCount} options={options} />
+    </div>
+
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 1 Dinner Counts Bar Graph</h2>
+        <Pie data={dinnerCount} options={options} />
+    </div>
+
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 2 Breakfast Counts Bar Graph</h2>
+        <Pie data={breakfast2Count} options={options} />
+    </div>
+
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        <h2 className="text-base sm:text-xl lg:text-2xl font-semibold mb-4">Day 2 Lunch Counts Bar Graph</h2>
+        <Pie data={lunch2Count} options={options} />
+    </div>
+    </div>
+
+
     </div>
   );
 };

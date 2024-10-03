@@ -51,9 +51,11 @@ const userSchema = new mongoose.Schema(
 		},
 		meals: {
 			breakfast1: { type: Boolean, default: false },
-			breakfast2: { type: Boolean, default: false },
-			lunch: { type: Boolean, default: false },
+			lunch1: { type: Boolean, default: false },
+			snacks : {type: Boolean, default: false},
 			dinner: { type: Boolean, default: false },
+			breakfast2: { type: Boolean, default: false },
+			lunch2: { type: Boolean, default: false },
 		},
 		role: {
 			type: String,
