@@ -53,11 +53,10 @@ export const adminScan = async (req, res) => {
                     dinner: false,
                     breakfast2: false,
                     lunch2:false
-                     // Add breakfast2 here
                 }; 	
             }
 
-            const validMeals = ["breakfast1", "lunch", "dinner", "breakfast2"];
+            const validMeals = ["breakfast1", "lunch1", "dinner", "breakfast2", "snacks","lunch2"];
             if (!validMeals.includes(meal)) {
                 return res.status(400).json({ message: "Invalid meal type" });
             }
