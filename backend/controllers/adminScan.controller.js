@@ -48,9 +48,12 @@ export const adminScan = async (req, res) => {
             if (!user.meals || typeof user.meals !== "object") {
                 user.meals = {
                     breakfast1: false,
-                    lunch: false,
+                    lunch1: false,
+                    snacks:false,
                     dinner: false,
-                    breakfast2: false, // Add breakfast2 here
+                    breakfast2: false,
+                    lunch2:false
+                     // Add breakfast2 here
                 }; 	
             }
 
