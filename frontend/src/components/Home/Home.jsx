@@ -4,8 +4,7 @@
   import TeamDetailsPopup from "../TeamDetailsPopup";
   import PersonalDetailsPopup from "../PersonalDetailsPopup";
   import GamesPopup from "../GamesPopup";
-  import QRCode from "qrcode";
-  import image from "../../../dist/Blank_board.png"
+  import image from "../Blank_board.svg";
   import MapPopup from "../MapPopup";
 
 const Homepage = () => {
