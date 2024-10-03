@@ -101,7 +101,7 @@ const QrScannerComponent = () => {
         style={previewStyle}
         constraints={{ video: videoConstraints }} // Apply video constraints for camera
       />
-      {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>}
+      {/* {qrData && <p className="mt-4 text-lg">Scanned Data: {JSON.stringify(qrData)}</p>} */}
       {isCooldown && <p className="mt-4 text-lg">Waiting for cooldown...</p>}
     </div>
   );
