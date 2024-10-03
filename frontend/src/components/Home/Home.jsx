@@ -5,6 +5,7 @@ import TeamDetailsPopup from "../TeamDetailsPopup";
 import PersonalDetailsPopup from "../PersonalDetailsPopup";
 import GamesPopup from "../GamesPopup";
 import QRCode from "qrcode";
+import MapPopup from "../MapPopup";
 
 const Homepage = () => {
   const [userData, setUserData] = useState(null);
@@ -15,6 +16,7 @@ const Homepage = () => {
   const [teamDetails, setTeamDetails] = useState([]);
   const [isPersonalPopupOpen, setIsPersonalPopupOpen] = useState(false);
   const [isGamesPopupOpen, setIsGamesPopupOpen] = useState(false);
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -116,6 +118,10 @@ const Homepage = () => {
     navigate('/qrcode');
   };
 
+  const handleMapClick = () => {
+    setIsMapPopupOpen(true);
+  };
+
   if (error) {
     return (
       <div className="flex flex-col h-screen bg-gray-100 items-center justify-center p-4">
@@ -177,6 +183,9 @@ const Homepage = () => {
             <Button onClick={handleGamesClick} bgColor="bg-[#f5af64]" textColor="text-[#182567]" hoverColor="hover:bg-[#f3a04e]">
               Games
             </Button>
+            <Button onClick={handleMapClick} bgColor="bg-[#252ac7]" hoverColor="hover:bg-[#1e22a0]">
+              Map
+            </Button>
           </div>
         </div>
       </div>
@@ -193,6 +202,10 @@ const Homepage = () => {
       <GamesPopup
         isOpen={isGamesPopupOpen}
         onClose={() => setIsGamesPopupOpen(false)}
+      />
+      <MapPopup
+        isOpen={isMapPopupOpen}
+        onClose={() => setIsMapPopupOpen(false)}
       />
     </div>
   );
