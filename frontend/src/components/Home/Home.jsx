@@ -44,31 +44,30 @@ const Homepage = () => {
   const updateCurrentMeal = () => {
     const now = new Date();
     const currentDate = now.toLocaleDateString();
-    const day1 = new Date('2024-10-03').toLocaleDateString();
-    const day2 = new Date('2024-10-04').toLocaleDateString();
+    const day1 = new Date('2024-10-04').toLocaleDateString();
+    const day2 = new Date('2024-10-05').toLocaleDateString();
     const hour = now.getHours();
     const minute = now.getMinutes();
+    const time = hour * 60 + minute;
 
     if (currentDate === day1) {
-      // Day 1 timings
-      if (hour === 9 && minute >= 0 && minute < 60) {
+      // Day 1 schedule
+      if (time >= 8 * 60 + 45 && time < 10 * 60) {
         setCurrentMeal("breakfast1");
-      } else if ((hour === 12 && minute >= 0) || (hour >= 1 && hour < 14) || (hour === 14 && minute < 60)) {
+      } else if (time >= 12 * 60 + 30 && time < 14 * 60) {
         setCurrentMeal("lunch1");
-      } else if (hour === 17 && minute >= 15 && minute < 60) {
+      } else if (time >= 17 * 60 + 15 && time < 17 * 60 + 45) {
         setCurrentMeal("snacks");
-      } else if (hour === 20 && minute >= 0 && minute < 120) {
+      } else if (time >= 20 * 60 + 30 && time < 22 * 60) {
         setCurrentMeal("dinner");
       } else {
         setCurrentMeal(null);
       }
-    }
-
-    else if (currentDate === day2) {
-      // Day 2 timings
-      if (hour === 8 && minute >= 0 && minute < 60) {
+    } else if (currentDate === day2) {
+      // Day 2 schedule
+      if (time >= 8 * 60 + 45 && time < 10 * 60) {
         setCurrentMeal("breakfast2");
-      } else if ((hour === 12 && minute >= 0) || (hour >= 1 && hour < 17) || (hour === 17 && minute < 60)) {
+      } else if (time >= 12 * 60 + 30 && time < 14 * 60) {
         setCurrentMeal("lunch2");
       } else {
         setCurrentMeal(null);
@@ -151,13 +150,14 @@ const Homepage = () => {
       {/* Mobile view */}
       <div className="lg:hidden flex flex-col h-full z-10">
         <div className="flex-1 flex flex-col items-center justify-between py-12 px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-extrabold text-[#f5af64] mb-3 shadow-text">
+          <div className="text-center mb-12 flex flex-col justify-center items-center">
+            <img src="/onDark(SHADOW)new.png" className="h-8" alt="" />
+            <h2 className="text-4xl font-extrabold text-[#f5af64] mb-3 shadow-text mt-5">
               {userData?.teamName || "Team Name"}
-            </h1>
-            <h2 className="text-2xl text-white font-semibold shadow-text">
-              {userData?.username || "Member Name"}
             </h2>
+            <h3 className="text-2xl text-white font-semibold shadow-text">
+              {userData?.username || "Member Name"}
+            </h3>
           </div>
           <div className="w-full space-y-6">
             <Button onClick={handlePersonalDetailsClick} bgColor="bg-[#252ac7]" hoverColor="hover:bg-[#1e22a0]">

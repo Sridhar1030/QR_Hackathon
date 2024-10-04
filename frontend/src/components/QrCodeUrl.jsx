@@ -44,8 +44,8 @@ const QRCodePage = () => {
         const minute = now.getMinutes();
 
         // Define your two specific days
-        const day1 = "Thu Oct 03 2024"; // Change this to your specific day
-        const day2 = "FRI Oct 04 2024"; // Change this to your specific day
+        const day1 = "Thu Oct 04 2024"; // Change this to your specific day
+        const day2 = "FRI Oct 05 2024"; // Change this to your specific day
 
         // Check if the current date is day1 or day2
         console.log(currentDate)
