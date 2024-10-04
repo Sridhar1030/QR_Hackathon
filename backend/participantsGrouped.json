@@ -393,6 +393,40 @@
 			"github": "https://github.com/AnuragPandey01"
 		}
 	],
+	"Alt+Ctrl+Win": [
+		{
+			"name": "Dnyanesh Panchal",
+			"email": "dnyanesh.225017108@vcet.edu.in",
+			"phoneNumber": "9764444444",
+			"college": "VCET",
+			"gender": "male",
+			"github": "https://github.com/Dnyanesh2709"
+		},
+		{
+			"name": "Ayush Mayekar",
+			"email": "ayush.224947101@vcet.edu.in",
+			"phoneNumber": "9764444424",
+			"college": "VCET",
+			"gender": "male",
+			"github": "https://github.com/AyushMayekar"
+		},
+		{
+			"name": "Yash Mayekar",
+			"email": "yash.224957105@vcet.edu.in",
+			"phoneNumber": "8164444444",
+			"college": "VCET",
+			"gender": "male",
+			"github": "https://github.com/yashmayekar"
+		},
+		{
+			"name": "Nitish Jha",
+			"email": "nitish.224827101@vcet.edu.in",
+			"phoneNumber": "2464444444",
+			"college": "VCET",
+			"gender": "male",
+			"github": "https://github.com/nitish12382"
+		}
+	],
 	"Upper moon": [
 		{
 			"name": "Amir shaikh",
@@ -1637,6 +1671,41 @@
 			"github": "https://github.com/DevPatils"
 		}
 	],
+	"NOT LIKE US": [
+		{
+			"name": "Tejas Salvi",
+			"email": "10088.aids@gmail.com",
+			"phoneNumber": "9407444422",
+			"college": "Fr Conceicao Rodrigues College of Engineering",
+			"gender": "male",
+			"github": "https://github.com/tylar1221"
+		},
+		{
+			"name": "Siddhant Jadhav",
+			"email": "sidak4712@gmail.com",
+			"phoneNumber": "1207444422",
+			"college": "Fr Conceicao Rodrigues College of Engineering",
+			"gender": "male",
+			"github": "https://github.com/siddhant210"
+		},
+		{
+			"name": "Abdussami Qazi",
+			"email": "qazisami76@gmail.com",
+			"phoneNumber": "9407444411",
+			"college": "Fr Conceicao Rodrigues College of Engineering",
+			"gender": "male",
+			"github": "https://github.com/AbdussamiQazi"
+		},
+		{
+			"name": "Aaren Solanki",
+			"email": "aaren.solanki@gmail.com",
+			"phoneNumber": "9407444400",
+
+			"college": "Fr Conceicao Rodrigues College of Engineering",
+			"gender": "male",
+			"github": "https://github.com/aaren2044"
+		}
+	],
 	"404 Not Found": [
 		{
 			"name": "Sahil Ashar",
@@ -1671,7 +1740,7 @@
 			"github": "https://github.com/rahulyadav20"
 		}
 	],
-	"Algo Architects ": [
+	"Algo Architects": [
 		{
 			"name": "Nagaraj Bhandare",
 			"email": "nagrajy131200350@gmail.com",
@@ -2843,7 +2912,7 @@
 			"github": "https://github.com/180805"
 		}
 	],
-	"Interlopers ": [
+	"Interlopers": [
 		{
 			"name": "Suyog Sable",
 			"email": "suyogsable3@gmail.com",
@@ -2997,7 +3066,7 @@
 			"github": "https://github.com/onkararadhye"
 		}
 	],
-	"NASA ": [
+	"NASA": [
 		{
 			"name": "Nikki Mehta",
 			"email": "nikkimehta2807@gmail.com",
@@ -3024,7 +3093,7 @@
 		},
 		{
 			"name": "Sakshi Patel",
-			"email": "sakshipatel.official@gmail.com",
+			"email": "sakshipatel.official7@gmail.com",
 			"phoneNumber": "9372498054",
 			"college": "SVKMs Dwarkadas Jivanlal Sanghvi College of Engineering",
 			"gender": "female",
@@ -3971,7 +4040,16 @@
 			"college": "VCET",
 			"gender": "female",
 			"github": "https://github.com/aarchyparekh25"
+		},
+		{
+			"name": "Siddhi Hate",
+			"email": "siddhihaate@gmail.com",
+			"phoneNumber": "7709209944",
+			"college": "VCET",
+			"gender": "female",
+			"github": "https://github.com/aarchyparekh25"
 		}
+
 	],
 	"FRESHCODERS": [
 		{
