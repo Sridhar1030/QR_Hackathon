@@ -44,11 +44,12 @@ const QRCodePage = () => {
         const minute = now.getMinutes();
 
         // Define your two specific days
-        const day1 = "Thu Oct 04 2024"; // Change this to your specific day
-        const day2 = "FRI Oct 05 2024"; // Change this to your specific day
+        const day1 = "Fri Oct 04 2024"; // Change this to your specific day
+        const day2 = "Sat Oct 05 2024"; // Change this to your specific day
 
         // Check if the current date is day1 or day2
         console.log(currentDate)
+        console.log(day1)
         if (currentDate === day1) {
             console.log("inside day 1")
             if (hour === 9 && minute >= 0 && minute < 60) {
