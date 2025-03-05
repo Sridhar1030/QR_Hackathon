@@ -52,6 +52,7 @@ const QRCodePage = () => {
         console.log(day1)
         if (currentDate === day1) {
             console.log("inside day 1")
+            
             if (hour === 9 && minute >= 0 && minute < 60) {
                 setCurrentMeal("breakfast1");
                 console.log("inside breakfast")
