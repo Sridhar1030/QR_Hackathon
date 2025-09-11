@@ -1,7 +1,5 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { Search, Bell, LayoutDashboard, Activity, Calendar, Settings, RefreshCw, LogOut } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Search, Bell, RefreshCw, LogOut, Flag, Zap, Target, Trophy, Gauge } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 export default function AdminDashboard() {
@@ -172,44 +170,202 @@ export default function AdminDashboard() {
   }
 
   const CircularProgress = ({ eaten, total, size = 120, mealKey }) => {
+    const [animatedPercentage, setAnimatedPercentage] = useState(0)
+    const [isAnimating, setIsAnimating] = useState(false)
+    const animationRef = useRef(null)
+
     const percentage = (eaten / total) * 100
     const radius = (size - 20) / 2
     const circumference = 2 * Math.PI * radius
+
+    useEffect(() => {
+      if (isAnimated && !isLoading) {
+        setIsAnimating(true)
+        setAnimatedPercentage(0) // Reset to 0 first
+
+        const startTime = Date.now()
+        const duration = 2500 // 2.5 seconds for smooth animation
+
+        const animate = () => {
+          const elapsed = Date.now() - startTime
+          const progress = Math.min(elapsed / duration, 1)
+
+          const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1)
+          const easedProgress = easeInOutCubic(progress)
+
+          const currentPercentage = easedProgress * percentage
+          setAnimatedPercentage(currentPercentage)
+
+          if (progress < 1) {
+            animationRef.current = requestAnimationFrame(animate)
+          } else {
+            setIsAnimating(false)
+            setTimeout(() => {
+              const pulseElement = document.querySelector(`[data-speedometer="${mealKey}"]`)
+              if (pulseElement) {
+                pulseElement.classList.add("animate-pulse")
+                setTimeout(() => pulseElement.classList.remove("animate-pulse"), 500)
+              }
+            }, 100)
+          }
+        }
+
+        setTimeout(() => {
+          animationRef.current = requestAnimationFrame(animate)
+        }, 200)
+      }
+
+      return () => {
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current)
+        }
+      }
+    }, [isAnimated, isLoading, percentage, mealKey])
+
     const strokeDasharray = circumference
-    const strokeDashoffset = isAnimated ? circumference - (percentage / 100) * circumference : circumference
+    const strokeDashoffset = circumference - (animatedPercentage / 100) * circumference
+    const needleRotation = (animatedPercentage / 100) * 180 - 90 // -90 to 90 degrees
+
+    const getSpeedometerColor = (percent) => {
+      if (percent < 30) return "#00FF41" // Neon green for low values
+      if (percent < 60) return "#FFD700" // Racing yellow for mid values
+      if (percent < 80) return "#FF8C00" // Orange for high values
+      return "#FF1801" // Ferrari red for very high values
+    }
+
+    const currentColor = getSpeedometerColor(animatedPercentage)
 
     return (
       <div
-        className="relative flex items-center justify-center transform transition-all duration-500 ease-out hover:scale-105"
+        className="relative flex items-center justify-center transform transition-all duration-500 ease-out"
         style={{ width: size, height: size }}
+        data-speedometer={mealKey}
       >
         <svg width={size} height={size} className="transform -rotate-90 transition-transform duration-300 ease-out">
           <circle
             cx={size / 2}
             cy={size / 2}
-            r={radius}
-            stroke="currentColor"
-            strokeWidth="8"
+            r={radius + 5}
+            stroke="url(#metallicGradient)"
+            strokeWidth="3"
             fill="none"
-            className="text-white/60 opacity-50 transition-opacity duration-500 ease-out"
+            className="opacity-80"
           />
+
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="currentColor"
+            stroke="#333"
+            strokeWidth="8"
+            fill="none"
+            className="opacity-50"
+          />
+
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke={currentColor}
             strokeWidth="8"
             fill="none"
             strokeDasharray={strokeDasharray}
             strokeDashoffset={strokeDashoffset}
-            className="text-gray-800 transition-all duration-[2500ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+            className="transition-all duration-100 ease-linear "
             strokeLinecap="round"
           />
+
+          {[0, 25, 50, 75, 100].map((mark, i) => {
+            const angle = (mark / 100) * 180 - 90
+            const x1 = size / 2 + (radius - 15) * Math.cos((angle * Math.PI) / 180)
+            const y1 = size / 2 + (radius - 15) * Math.sin((angle * Math.PI) / 180)
+            const x2 = size / 2 + (radius - 5) * Math.cos((angle * Math.PI) / 180)
+            const y2 = size / 2 + (radius - 5) * Math.sin((angle * Math.PI) / 180)
+            return (
+              <line
+                key={i}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#FFD700"
+                strokeWidth="2"
+                className="opacity-80"
+                style={{ filter: "drop-shadow(0 0 2px #FFD700)" }}
+              />
+            )
+          })}
+
+          <defs>
+            <linearGradient id="racingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#00FF41" />
+              <stop offset="30%" stopColor="#FFD700" />
+              <stop offset="70%" stopColor="#FF8C00" />
+              <stop offset="100%" stopColor="#FF1801" />
+            </linearGradient>
+            <linearGradient id="metallicGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#c0c0c0" />
+              <stop offset="50%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#c0c0c0" />
+            </linearGradient>
+          </defs>
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-light transition-all duration-300 ease-out">
-            {animatedCounts[mealKey] || 0}
+
+        <div
+          className="absolute origin-bottom transition-transform duration-100 ease-linear"
+          style={{
+            width: "3px",
+            height: radius - 10,
+            background: `linear-gradient(to top, ${currentColor}, #FFD700)`,
+            bottom: "50%",
+            left: "50%",
+            transform: `translateX(-50%) rotate(${needleRotation}deg)`,
+            transformOrigin: "bottom center",
+            filter: `drop-shadow(0 0 6px ${currentColor})`,
+            borderRadius: "2px 2px 0 0",
+          }}
+        >
+          <div
+            className="absolute top-8 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full"
+            style={{
+              background: currentColor,
+              boxShadow: `0 0 8px ${currentColor}, 0 0 16px ${currentColor}`,
+            }}
+          />
+        </div>
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span
+            className="text-2xl font-mono font-thin drop-shadow-lg transition-colors duration-300 "
+            style={{ color: currentColor }}
+          >
+            {Math.round(animatedPercentage * (total / 100))}
           </span>
+          <span className="text-xs font-mono text-[#c0c0c0] opacity-80 translate-y-3">CONSUMED</span>
+          <div className="text-xs font-mono text-[#888] mt-1 translate-y-2">{Math.round(animatedPercentage)}%</div>
+        </div>
+
+        <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex gap-1 -translate-y-5">
+          {[1, 2, 3, 4, 5].map((light) => (
+            <div
+              key={light}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                animatedPercentage > light * 20
+                  ? light <= 3
+                    ? "bg-green-400 shadow-green-400"
+                    : light === 4
+                      ? "bg-yellow-400 shadow-yellow-400"
+                      : "bg-red-500 shadow-red-500"
+                  : "bg-gray-600"
+              }`}
+              style={{
+                boxShadow:
+                  animatedPercentage > light * 20
+                    ? `0 0 4px ${light <= 3 ? "#4ade80" : light === 4 ? "#facc15" : "#ef4444"}`
+                    : "none",
+              }}
+            />
+          ))}
         </div>
       </div>
     )
@@ -220,20 +376,20 @@ export default function AdminDashboard() {
     const notEatenPercentage = Math.round((notEaten / total) * 100)
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-2 font-mono text-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-gray-800 rounded-full"></div>
-            <span className="text-sm">Eaten</span>
+            <div className="w-3 h-3 bg-[#FF1801] rounded-full shadow-lg"></div>
+            <span className="text-white font-medium">CONSUMED</span>
           </div>
-          <span className="text-sm font-medium">{eatenPercentage}%</span>
+          <span className="text-[#FFD700] font-bold">{eatenPercentage}%</span>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-gray-300 border border-black rounded-full"></div>
-            <span className="text-sm">Not Eaten</span>
+            <div className="w-3 h-3 bg-[#333] border border-[#c0c0c0] rounded-full"></div>
+            <span className="text-[#c0c0c0] font-medium">REMAINING</span>
           </div>
-          <span className="text-sm font-medium">{notEatenPercentage}%</span>
+          <span className="text-[#c0c0c0] font-bold">{notEatenPercentage}%</span>
         </div>
       </div>
     )
@@ -241,124 +397,140 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] carbon-fiber-bg flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-gray-600" />
-          <p className="text-gray-600">Loading meal data...</p>
+          <div className="relative">
+            <RefreshCw className="w-12 h-12 animate-spin mx-auto mb-4 text-[#FF1801]" />
+            <div className="absolute inset-0 w-12 h-12 mx-auto animate-pulse bg-[#FF1801] rounded-full opacity-20"></div>
+          </div>
+          <p className="text-[#FFD700] font-mono font-bold text-lg">LOADING RACE DATA...</p>
+          <div className="mt-2 flex justify-center space-x-1">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="w-2 h-2 bg-[#FF1801] rounded-full animate-bounce"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen transition-all duration-700 ease-out ${isDark ? "dark bg-slate-100" : "bg-gray-50"}`}>
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] carbon-fiber-bg">
       <div className="flex">
-        {/* Sidebar */}
-        <div className="w-64 bg-slate-200 text-white p-6 min-h-screen transition-all duration-500 ease-out">
-          {/* Logo */}
-          <div className="flex items-center gap-3 mb-8">
-            <img
-              src="https://i.postimg.cc/g25645rx/Screenshot-2025-09-07-at-8-02-56-PM-Photoroom.png"
-              className="w-auto h-16 object-cover"
-            />
-          </div>
+        <div className="w-64 bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-r-2 border-[#FF1801] text-white p-6 min-h-screen relative overflow-hidden">
+          <div className="absolute inset-0 racing-stripes opacity-30"></div>
 
-          {/* Profile */}
-          <div className="mb-14 mt-12 text-center">
-            <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden bg-gray-600">
-              <img
-                src="https://i.pinimg.com/736x/4e/7c/53/4e7c53e7d136ab654ec3b004eeec3e72.jpg"
-                alt="Admin"
-                className="w-full h-full object-cover"
-              />
+          <div className="flex items-center gap-3 mb-8 relative z-10">
+            <div className="flex items-center gap-2">
+              <img src="https://i.postimg.cc/4dGYpG5c/Screenshot-2025-09-11-at-12-41-21-PM-Photoroom.png" alt="" />
             </div>
-            <div className="text-sm text-black font-medium">Admin</div>
           </div>
 
-          {/* Navigation */}
-          <nav className="space-y-2 mb-8">
-            <div className="flex items-center gap-3 px-3 py-2 bg-gray-700 rounded-xl transition-all duration-300 ease-out">
-              <LayoutDashboard className="w-4 h-8 transition-transform duration-200 ease-out" />
-              <span className="text-lg font-light">Dashboard</span>
+          <div className="mb-14 mt-12 text-center relative z-10">
+            <div className="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden p-1">
+              <div className="w-full h-full rounded-full overflow-hidden bg-[#1a1a1a]">
+                <img
+                  src="https://i.pinimg.com/736x/4e/7c/53/4e7c53e7d136ab654ec3b004eeec3e72.jpg"
+                  alt="Pit Crew Chief"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="text-sm text-[#FFD700] font-mono font-bold">PIT CREW CHIEF</div>
+            <div className="text-xs text-[#c0c0c0] font-mono">RACE CONTROL</div>
+          </div>
+
+          <nav className="space-y-2 mb-8 relative z-10">
+            <div className="flex items-center gap-3 px-4 py-3 hover:text-white hover:bg-gradient-to-r hover:from-[#333] hover:to-[#555] rounded-3xl neon-glow transition-all duration-300 ease-out">
+              <Gauge className="w-5 h-5 text-white" />
+              <span className="text-white font-mono font-bold">DASHBOARD</span>
             </div>
             <div
               onClick={handleScannerClick}
-              className="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1"
+              className="flex items-center gap-3 px-4 py-3 text-[#c0c0c0] hover:text-white hover:bg-gradient-to-r hover:from-[#333] hover:to-[#555] rounded-3xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1 hover:neon-glow-yellow group"
             >
-              <Activity className="w-4 h-8 transition-transform duration-200 ease-out" />
-              <span className="text-lg font-light">Scanner</span>
+              <Target className="w-5 h-5 group-hover:text-[#FFD700] transition-colors duration-200" />
+              <span className="font-mono font-medium">SCANNER</span>
             </div>
             <div
               onClick={handleUserListClick}
-              className="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1"
+              className="flex items-center gap-3 px-4 py-3 text-[#c0c0c0] hover:text-white hover:bg-gradient-to-r hover:from-[#333] hover:to-[#555] rounded-3xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1 hover:neon-glow-yellow group"
             >
-              <Calendar className="w-4 h-8 transition-transform duration-200 ease-out" />
-              <span className="text-lg font-light">User List</span>
+              <Trophy className="w-5 h-5 group-hover:text-[#FFD700] transition-colors duration-200" />
+              <span className="font-mono font-medium">DRIVERS</span>
             </div>
             <div
               onClick={handleSignupClick}
-              className="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1"
+              className="flex items-center gap-3 px-4 py-3 text-[#c0c0c0] hover:text-white hover:bg-gradient-to-r hover:from-[#333] hover:to-[#555] rounded-3xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1 hover:neon-glow-yellow group"
             >
-              <Settings className="w-4 h-8 transition-transform duration-200 ease-out" />
-              <span className="text-lg font-light">SignUp</span>
+              <Zap className="w-5 h-5 group-hover:text-[#FFD700] transition-colors duration-200" />
+              <span className="font-mono font-medium">SIGNUP</span>
             </div>
           </nav>
 
-          <div className="mt-auto">
+          <div className="mt-auto relative z-10">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-gray-700 rounded-xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1 w-full"
+              className="flex items-center gap-3 px-4 py-3 text-[#c0c0c0] hover:text-[#FF1801] hover:bg-gradient-to-r hover:from-[#333] hover:to-[#555] rounded-3xl cursor-pointer transition-all duration-300 ease-out hover:transform hover:translate-x-1 w-full group"
             >
-              <LogOut className="w-4 h-8 transition-transform duration-200 ease-out" />
-              <span className="text-lg font-light">Logout</span>
+              <LogOut className="w-5 h-5 group-hover:text-[#FF1801] transition-colors duration-200" />
+              <span className="font-mono font-medium">PIT STOP</span>
             </button>
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="flex-1 p-6">
-          {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-thin text-black transition-all duration-500 ease-out">Meal Statistics</h1>
+            <div>
+              <h1 className="text-6xl font-mono font-thin text-transparent bg-gradient-to-r from-[#FF1801] via-[#FFD700] to-[#FF1801] bg-clip-text">
+                CANTEEN
+              </h1>
+              <p className="text-[#c0c0c0] font-mono text-sm mt-1">MEAL CONSUMPTION ANALYTICS</p>
+            </div>
 
             <div className="flex items-center gap-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 transition-all duration-200 ease-out" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FFD700] w-4 h-4" />
                 <input
-                  placeholder="Search something..."
-                  className="pl-10 w-64 bg-slate-200 shadow-2xl text-black placeholder-gray-400 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 ease-out focus:transform focus:scale-105"
+                  placeholder="Search race data..."
+                  className="pl-10 w-64 bg-gradient-to-r from-[#1a1a1a] to-[#333] border border-[#555] text-white placeholder-[#888] rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FF1801] focus:border-[#FF1801] transition-all duration-300 ease-out font-mono"
                 />
               </div>
               <button
                 onClick={fetchMealData}
-                className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-full font-medium transition-all duration-300 ease-out hover:transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
+                className="bg-gradient-to-r from-[#FF1801] to-[#FF4500] text-white hover:from-[#FF4500] hover:to-[#FFD700] px-6 py-2 rounded-full font-mono font-bold transition-all duration-300 ease-out hover:transform hover:scale-105 neon-glow flex items-center gap-2 uppercase tracking-wider"
               >
                 <RefreshCw className="w-4 h-4" />
-                Refresh
+                PIT STOP
               </button>
-              <button className="text-gray-400 hover:text-black p-2 transition-all duration-300 ease-out hover:transform hover:scale-110">
-                <Bell className="w-5 h-5 transition-transform duration-200 ease-out" />
+              <button className="text-[#c0c0c0] hover:text-[#FFD700] p-2 transition-all duration-300 ease-out hover:transform hover:scale-110">
+                <Bell className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           <div className="mb-6">
-            <div className="bg-white rounded-2xl shadow-sm p-4 inline-block">
-              <div className="text-sm text-gray-600">Total Users</div>
-              <div className="text-2xl font-bold text-black">{mealData.totalUsers}</div>
+            <div className="bg-gradient-to-r from-[#1a1a1a] to-[#333] border border-[#FF1801] rounded-2xl p-6 inline-block neon-glow">
+              <div className="text-sm text-[#FFD700] font-mono font-bold uppercase tracking-wider">TOTAL DRIVERS</div>
+              <div className="text-3xl font-mono font-black text-white mt-1">{mealData.totalUsers}</div>
+              <div className="text-xs text-[#c0c0c0] font-mono mt-1">REGISTERED PARTICIPANTS</div>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-6">
-            {/* Day 1 Breakfast Card */}
-            <div className="bg-yellow-300 text-black rounded-3xl shadow-3xl p-6 transition-all duration-500 ease-out hover:transform  hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 1 Breakfast</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#FFD700] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:neon-glow-yellow relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#FFD700] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#FFD700] uppercase tracking-wider">DAY 1 BREAKFAST</h3>
+                <span className="text-sm text-[#c0c0c0] hover:text-[#FFD700] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day1.breakfast.eaten}
                   total={convertedMealData.day1.breakfast.total}
@@ -374,15 +546,15 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Day 1 Lunch Card */}
-            <div className="bg-slate-300 text-black rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 1 Lunch</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#c0c0c0] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#c0c0c0] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#c0c0c0] uppercase tracking-wider">DAY 1 LUNCH</h3>
+                <span className="text-sm text-[#888] hover:text-[#c0c0c0] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day1.lunch.eaten}
                   total={convertedMealData.day1.lunch.total}
@@ -398,15 +570,15 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Day 1 Snacks Card */}
-            <div className="bg-yellow-300 text-black rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 1 Snacks</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#FFD700] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:neon-glow-yellow relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#FFD700] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#FFD700] uppercase tracking-wider">DAY 1 SNACKS</h3>
+                <span className="text-sm text-[#c0c0c0] hover:text-[#FFD700] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day1.snacks.eaten}
                   total={convertedMealData.day1.snacks.total}
@@ -422,15 +594,15 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Day 1 Dinner Card */}
-            <div className="bg-slate-300 text-black rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 1 Dinner</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#c0c0c0] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#c0c0c0] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#c0c0c0] uppercase tracking-wider">DAY 1 DINNER</h3>
+                <span className="text-sm text-[#888] hover:text-[#c0c0c0] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day1.dinner.eaten}
                   total={convertedMealData.day1.dinner.total}
@@ -446,15 +618,15 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Day 2 Breakfast Card */}
-            <div className="bg-yellow-300 text-black rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 2 Breakfast</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#FFD700] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:neon-glow-yellow relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#FFD700] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#FFD700] uppercase tracking-wider">DAY 2 BREAKFAST</h3>
+                <span className="text-sm text-[#c0c0c0] hover:text-[#FFD700] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day2.breakfast.eaten}
                   total={convertedMealData.day2.breakfast.total}
@@ -470,15 +642,15 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Day 2 Lunch Card */}
-            <div className="bg-gray-300 text-black rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold transition-all duration-300 ease-out">Day 2 Lunch</h3>
-                <span className="text-sm text-gray-700 hover:text-gray-900 cursor-pointer transition-all duration-200 ease-out">
-                  More
+            <div className="bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#c0c0c0] text-white rounded-3xl p-6 transition-all duration-500 ease-out hover:transform hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#c0c0c0] to-transparent opacity-20 rounded-bl-full"></div>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-lg font-mono font-bold text-[#c0c0c0] uppercase tracking-wider">DAY 2 LUNCH</h3>
+                <span className="text-sm text-[#888] hover:text-[#c0c0c0] cursor-pointer transition-all duration-200 ease-out font-mono">
+                  MORE
                 </span>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center relative z-10">
                 <CircularProgress
                   eaten={convertedMealData.day2.lunch.eaten}
                   total={convertedMealData.day2.lunch.total}
@@ -495,58 +667,76 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Meal Counts Table */}
-          <div className="mt-8 bg-white rounded-3xl shadow-sm p-6 transition-all duration-500 ease-out hover:shadow-lg">
-            <h2 className="text-2xl font-bold text-black mb-6 transition-all duration-300 ease-out">Meal Counts</h2>
+          <div className="mt-8 bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] border border-[#FF1801] rounded-3xl p-6 transition-all duration-500 ease-out hover:neon-glow relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#FF1801] via-[#FFD700] to-[#FF1801] "></div>
+            <div className="flex items-center gap-3 mb-6">
+              <Trophy className="w-8 h-8 text-[#FFD700]" />
+              <h2 className="text-2xl font-mono font-black text-transparent bg-gradient-to-r from-[#FF1801] to-[#FFD700] bg-clip-text uppercase tracking-wider">
+                RACE RESULTS
+              </h2>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 font-semibold text-black transition-all duration-200 ease-out">
-                      Meal Type
+                  <tr className="border-b-2 border-[#FF1801]">
+                    <th className="text-left py-4 px-4 font-mono font-bold text-[#FFD700] uppercase tracking-wider">
+                      POSITION
                     </th>
-                    <th className="text-right py-3 px-4 font-semibold text-black transition-all duration-200 ease-out">
-                      Count
+                    <th className="text-left py-4 px-4 font-mono font-bold text-[#FFD700] uppercase tracking-wider">
+                      MEAL TYPE
+                    </th>
+                    <th className="text-right py-4 px-4 font-mono font-bold text-[#FFD700] uppercase tracking-wider">
+                      CONSUMPTION
                     </th>
                   </tr>
                 </thead>
-                <tbody className="text-black">
-                  <tr className="border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 1 Breakfast</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day1.breakfast.eaten}
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 1 Lunch</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day1.lunch.eaten}
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 1 Snacks</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day1.snacks.eaten}
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 1 Dinner</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day1.dinner.eaten}
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 2 Breakfast</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day2.breakfast.eaten}
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-gray-50 transition-all duration-200 ease-out">
-                    <td className="py-3 px-4 transition-all duration-200 ease-out">Day 2 Lunch</td>
-                    <td className="py-3 px-4 text-right font-medium transition-all duration-200 ease-out">
-                      {convertedMealData.day2.lunch.eaten}
-                    </td>
-                  </tr>
+                <tbody className="text-white">
+                  {[
+                    { name: "Day 1 Breakfast", count: convertedMealData.day1.breakfast.eaten },
+                    { name: "Day 1 Lunch", count: convertedMealData.day1.lunch.eaten },
+                    { name: "Day 1 Snacks", count: convertedMealData.day1.snacks.eaten },
+                    { name: "Day 1 Dinner", count: convertedMealData.day1.dinner.eaten },
+                    { name: "Day 2 Breakfast", count: convertedMealData.day2.breakfast.eaten },
+                    { name: "Day 2 Lunch", count: convertedMealData.day2.lunch.eaten },
+                  ]
+                    .sort((a, b) => b.count - a.count)
+                    .map((meal, index) => (
+                      <tr
+                        key={meal.name}
+                        className="border-b border-[#333] hover:bg-gradient-to-r hover:from-[#2a2a2a] hover:to-[#1a1a1a] transition-all duration-200 ease-out group"
+                      >
+                        <td className="py-4 px-4 font-mono font-bold">
+                          <div className="flex items-center gap-2">
+                            {index === 0 && (
+                              <div className="w-6 h-6 bg-gradient-to-r from-[#FFD700] to-[#FFA500] rounded-full flex items-center justify-center text-black text-sm font-black">
+                                1
+                              </div>
+                            )}
+                            {index === 1 && (
+                              <div className="w-6 h-6 bg-gradient-to-r from-[#c0c0c0] to-[#888] rounded-full flex items-center justify-center text-black text-sm font-black">
+                                2
+                              </div>
+                            )}
+                            {index === 2 && (
+                              <div className="w-6 h-6 bg-gradient-to-r from-[#CD7F32] to-[#8B4513] rounded-full flex items-center justify-center text-white text-sm font-black">
+                                3
+                              </div>
+                            )}
+                            {index > 2 && (
+                              <div className="w-6 h-6 bg-[#333] rounded-full flex items-center justify-center text-[#888] text-sm font-bold">
+                                {index + 1}
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-4 px-4 font-mono font-medium group-hover:text-[#FFD700] transition-colors duration-200">
+                          {meal.name.toUpperCase()}
+                        </td>
+                        <td className="py-4 px-4 text-right font-mono font-bold text-[#FF1801] text-lg">
+                          {meal.count}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
