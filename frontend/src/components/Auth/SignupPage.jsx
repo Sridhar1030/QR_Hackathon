@@ -81,7 +81,7 @@ const SignupPage = () => {
         <div className="text-center mb-16">
           <div className="relative mb-8">
             <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-yellow-400 leading-tight font-mono tracking-wider transform hover:scale-105 transition-transform duration-300">
-              TEAM PLANNING
+              TEAM SIGNUP
               <br />
               <span className="text-4xl md:text-4xl bg-gradient-to-r from-yellow-400 to-white bg-clip-text text-transparent">
                 RACE TO VICTORY
@@ -89,9 +89,9 @@ const SignupPage = () => {
             </h1>
           </div>
 
-          <p className="text-xl text-gray-300 mb-8 font-mono tracking-wide">
+          {/* <p className="text-xl text-gray-300 mb-8 font-mono tracking-wide">
             🏁 GET EXCLUSIVE OFFERS ON SELECTION OF ANY TEAMS 🏁
-          </p>
+          </p> */}
 
           <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-3xl max-w-2xl mx-auto border-2 border-red-600 shadow-2xl shadow-red-600/20 relative overflow-hidden">
             {/* Racing panel lights */}
@@ -175,15 +175,15 @@ const SignupPage = () => {
         </div>
 
         <div className="mb-16">
-          <div className="flex justify-between items-center mb-8">
+          {/* <div className="flex justify-between items-center mb-8">
             <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-yellow-400 font-mono tracking-wider">
               🏁 PIT STOP SERVICES
             </h2>
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Lunch Racing Panel */}
-            <div className="bg-gradient-to-br from-green-400 to-green-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-green-400/50 border-2 border-green-600 relative overflow-hidden group">
+            {/* <div className="bg-gradient-to-br from-green-400 to-green-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-green-400/50 border-2 border-green-600 relative overflow-hidden group">
               <div className="absolute top-2 right-2">
                 <div className="w-4 h-4 bg-black rounded-full"></div>
               </div>
@@ -203,10 +203,10 @@ const SignupPage = () => {
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Dinner Racing Panel */}
-            <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-red-600/50 border-2 border-red-800 relative overflow-hidden group">
+            {/* <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-red-600/50 border-2 border-red-800 relative overflow-hidden group">
               <div className="absolute top-2 right-2">
                 <div className="w-4 h-4 bg-yellow-400 rounded-full "></div>
               </div>
@@ -226,10 +226,10 @@ const SignupPage = () => {
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Snacks Racing Panel */}
-            <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50 border-2 border-purple-700 relative overflow-hidden group">
+            {/* <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50 border-2 border-purple-700 relative overflow-hidden group">
               <div className="absolute top-2 right-2">
                 <div className="w-4 h-4 bg-green-400 rounded-full "></div>
               </div>
@@ -247,10 +247,10 @@ const SignupPage = () => {
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Beverages Racing Panel */}
-            <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-400/50 border-2 border-yellow-600 relative overflow-hidden group">
+            {/* <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-400/50 border-2 border-yellow-600 relative overflow-hidden group">
               <div className="absolute top-2 right-2">
                 <div className="w-4 h-4 bg-red-600 rounded-full "></div>
               </div>
@@ -270,7 +270,8 @@ const SignupPage = () => {
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> */}
+
           </div>
         </div>
       </main>
