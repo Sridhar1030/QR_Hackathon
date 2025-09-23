@@ -1,4 +1,5 @@
 {
+	
 	"Data Knights": [
 		{
 			"name": "Rohit Yadav",
@@ -31,6 +32,16 @@
 			"college": "A P Shah Institute Of Technology",
 			"gender": "female",
 			"github": "https://github.com/khushi10202"
+		}
+	],
+	"test": [
+		{
+			"name": "Rohit Yadav",
+			"email": "mandar.233574101@vcet.edu.in",
+			"phoneNumber": "9309330425",
+			"college": "A P Shah Institute Of Technology",
+			"gender": "male",
+			"github": "https://github.com/Rohit529-debug"
 		}
 	],
 	"DevAICoders": [
