@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { json } from "express";
 import { sendEmail } from "../utils/sendmail.js";
+import { Team } from "../models/team.models.js";
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
@@ -26,76 +27,63 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
     }
 };
 
-// Controller for signing up a user
+// Controller for signing up users from a team in DB
 export const signUpUser = async (req, res) => {
     const { teamName, adminEmail } = req.body;
 
-    if (!(adminEmail === process.env.Admin_Email)) {
+    if (adminEmail !== process.env.Admin_Email) {
         return res.status(401).json({ message: "Unauthorized access." });
     }
 
-    const teamNameExists = await User.findOne({ teamName });
-
-    if (teamNameExists) {
-        return res.status(400).json({ message: "Team already exists." });
-    }
-
-    const teamsFilePath = path.join(
-        process.cwd(),
-        "./participantsGrouped.json"
-    );
-
     try {
-        // Load the participant emails asynchronously
-        const data = await fs.promises.readFile(teamsFilePath, "utf8");
-        const participants = JSON.parse(data);
-
-        // Ensure the team exists in the file
-        const members = participants[teamName];
-        if (!members) {
+        // Find the team in MongoDB
+        const team = await Team.findOne({ name: teamName }).populate("members");
+        if (!team) {
             return res.status(404).json({ message: "Team not found." });
         }
 
-        for (const member of members) {
-            const phoneLength = member.phoneNumber.length;
+        // Loop through each member
+        for (const member of team.members) {
+            // Skip if user already exists
+            const existingUser = await User.findOne({ email: member.email });
+            if (existingUser) continue;
 
-            const firstTwo = member.phoneNumber.substring(0, 2);
-
-            const middleIndex = Math.floor(phoneLength / 2);
-            const middleTwo = member.phoneNumber.substring(middleIndex - 1, middleIndex + 1);
-
-            const lastTwo = member.phoneNumber.substring(phoneLength - 2);
-
+            // Generate password from phone number
+            const phone = member.phoneNumber;
+            const firstTwo = phone.substring(0, 2);
+            const middleIndex = Math.floor(phone.length / 2);
+            const middleTwo = phone.substring(middleIndex - 1, middleIndex + 1);
+            const lastTwo = phone.substring(phone.length - 2);
             const password = firstTwo + middleTwo + lastTwo;
 
+            // Create new user
             const newUser = new User({
-                username: member.name,
+                username: member.username || member.name,
                 email: member.email,
-                teamName: teamName,
                 phoneNumber: member.phoneNumber,
                 github: member.github,
                 college: member.college,
                 gender: member.gender,
+                teamName: teamName,
                 password: password,
             });
 
-            sendEmail(member.email, password, member.name)
-                .then((data) => {
-                    console.log(data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-
+            // Save user to DB
             await newUser.save();
+
+            // Send email
+            sendEmail(member.email, password, member.username || member.name)
+                .then(console.log)
+                .catch(console.error);
         }
 
-        return res.status(201).json({ message: "Users created successfully." });
+        return res.status(201).json({ message: "Users created and emails sent successfully." });
     } catch (err) {
-        console.error("Error reading or processing file:", err);
+        console.error(err);
         return res.status(500).json({ message: "Internal server error." });
     }
 };
+
 
 // Controller for logging in a user
 export const loginUser = async (req, res) => {
@@ -141,25 +129,30 @@ export const loginUser = async (req, res) => {
     }
 };
 
+
+
 export const getTeamDetailsByTeamName = async (req, res) => {
+  try {
     const { teamName } = req.body;
 
-    try {
-        const member = await User.find({ teamName });
+    const team = await Team.findOne({ name: teamName })
+      .populate("members", "fname lname email") // get member details
+      .populate("leader", "fname lname email");
 
-        if (!member) {
-            return res.status(404).json({ message: "Team not found." });
-        }
+    if (!team) return res.status(404).json({ message: "Team not found" });
 
-        return res
-            .status(200)
-            .json({ message: "team member detail fetch", member });
-    } catch (error) {
-        res.status(500).json({
-            message: "Server error while logging in user.",
-        });
-    }
+    // create name field for each member
+    const membersWithName = team.members.map((m) => ({
+      name: `${m.fname} ${m.lname}`,
+      email: m.email,
+    }));
+
+    res.status(200).json({ members: membersWithName });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching team", error: err.message });
+  }
 };
+
 
 export const getUser = async (req, res) => {
     try {

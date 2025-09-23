@@ -4,13 +4,20 @@ import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
 	{
-		username: {
+		fname: {
 			type: String,
 			required: true,
-			unique: true,
 			trim: true,
-			index: true,
+			index: true
 		},
+
+		lname: {
+			type: String,
+			required: true,
+			trim: true,
+			index: true
+		},
+
 		email: {
 			type: String,
 			required: true,
@@ -19,12 +26,12 @@ const userSchema = new mongoose.Schema(
 			lowercase: true,
 			index: true,
 		},
-		phoneNumber :{
+		phoneNumber: {
 			type: String,
 			required: true,
 			unique: true,
 		},
-		github:{
+		github: {
 			type: String,
 			required: true,
 			unique: true,
@@ -41,25 +48,25 @@ const userSchema = new mongoose.Schema(
 			// Added refreshToken field
 			type: String,
 		},
-		gender : {
+		gender: {
 			type: String,
 			required: true,
 		},
 		teamName: {
-			type : String,
+			type: String,
 			required: true,
 		},
 		meals: {
 			breakfast1: { type: Boolean, default: false },
 			lunch1: { type: Boolean, default: false },
-			snacks : {type: Boolean, default: false},
+			snacks: { type: Boolean, default: false },
 			dinner: { type: Boolean, default: false },
 			breakfast2: { type: Boolean, default: false },
 			lunch2: { type: Boolean, default: false },
 		},
 		role: {
 			type: String,
-			enum:['admin', 'user'],
+			enum: ['admin', 'user'],
 			default: "user"
 		}
 	},

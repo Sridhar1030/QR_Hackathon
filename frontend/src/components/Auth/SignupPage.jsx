@@ -2,11 +2,10 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import participantsGroupedData from "./FinalTeam.json"
 
 const SignupPage = () => {
   const [teamName, setTeamName] = useState("")
-  const [teams, setTeams] = useState({})
+  const [teams, setTeams] = useState([]) // ✅ array instead of object
   const [selectedTeam, setSelectedTeam] = useState(null)
   const [email, setEmail] = useState("")
 
@@ -15,14 +14,32 @@ const SignupPage = () => {
   const adminEmail = localStorage.getItem("email")
   const cleanedEmail = adminEmail?.replace(/"/g, "")
 
+  // ✅ Fetch selected teams from backend
   useEffect(() => {
-    setTeams(participantsGroupedData)
-  }, [])
+    const fetchTeams = async () => {
+      try {
+        const res = await axios.get(`${backendUrl}/api/users/selected-teams`)
+        setTeams(res.data) // assume backend returns [{ _id, name }, ...]
+      } catch (err) {
+        toast.error("Failed to fetch teams")
+      }
+    }
+    fetchTeams()
+  }, [backendUrl])
 
-  const handleTeamSelect = (e) => {
+  const handleTeamSelect = async (e) => {
     const selectedTeamName = e.target.value
     setTeamName(selectedTeamName)
-    setSelectedTeam(teams[selectedTeamName])
+
+    try {
+      const res = await axios.post(`${backendUrl}/api/users/getTeamDetailsByTeamName`, {
+        teamName: selectedTeamName,
+      })
+      setSelectedTeam(res.data.members)
+    } catch (err) {
+      setSelectedTeam(null)
+      toast.error("Failed to fetch team members")
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -37,9 +54,8 @@ const SignupPage = () => {
 
       toast.success(response.data.message || "Team signed up successfully!")
 
-      const updatedTeams = { ...teams }
-      delete updatedTeams[teamName]
-      setTeams(updatedTeams)
+      // ✅ remove the signed-up team from dropdown
+      setTeams((prev) => prev.filter((t) => t.name !== teamName))
 
       setTeamName("")
       setSelectedTeam(null)
@@ -89,12 +105,7 @@ const SignupPage = () => {
             </h1>
           </div>
 
-          {/* <p className="text-xl text-gray-300 mb-8 font-mono tracking-wide">
-            🏁 GET EXCLUSIVE OFFERS ON SELECTION OF ANY TEAMS 🏁
-          </p> */}
-
           <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-3xl max-w-2xl mx-auto border-2 border-red-600 shadow-2xl shadow-red-600/20 relative overflow-hidden">
-            {/* Racing panel lights */}
             <div className="absolute top-4 right-4 flex space-x-2">
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
               <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse delay-75"></div>
@@ -128,9 +139,9 @@ const SignupPage = () => {
                       <option value="" className="bg-gray-800">
                         🏁 Select a racing team
                       </option>
-                      {Object.keys(teams).map((team) => (
-                        <option key={team} value={team} className="bg-gray-800">
-                          🏎️ {team}
+                      {teams.map((team) => (
+                        <option key={team._id} value={team.name} className="bg-gray-800">
+                          🏎️ {team.name}
                         </option>
                       ))}
                     </select>
@@ -171,107 +182,7 @@ const SignupPage = () => {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-
-        <div className="mb-16">
-          {/* <div className="flex justify-between items-center mb-8">
-            <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-yellow-400 font-mono tracking-wider">
-              🏁 PIT STOP SERVICES
-            </h2>
-          </div> */}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Lunch Racing Panel */}
-            {/* <div className="bg-gradient-to-br from-green-400 to-green-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-green-400/50 border-2 border-green-600 relative overflow-hidden group">
-              <div className="absolute top-2 right-2">
-                <div className="w-4 h-4 bg-black rounded-full"></div>
-              </div>
-              <div className="text-sm font-black mb-2 font-mono tracking-wider">🍽️ FUEL STATION</div>
-              <h3 className="text-2xl font-black mb-3 font-mono">LUNCH</h3>
-              <p className="text-sm mb-6 opacity-90 font-mono">
-                Refuel your racing team here. Confirm headcount to avoid pit stop delays.
-              </p>
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="text-xs opacity-70 font-mono">PIT TIME</div>
-                  <div className="text-3xl font-black font-mono bg-black text-green-400 px-2 py-1 rounded">1:00</div>
-                </div>
-                <button className="bg-black bg-opacity-30 rounded-full p-3 hover:bg-opacity-50 transition-all ">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div> */}
-
-            {/* Dinner Racing Panel */}
-            {/* <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-red-600/50 border-2 border-red-800 relative overflow-hidden group">
-              <div className="absolute top-2 right-2">
-                <div className="w-4 h-4 bg-yellow-400 rounded-full "></div>
-              </div>
-              <div className="text-sm font-black mb-2 opacity-90 font-mono tracking-wider">🏎️ NIGHT FUEL</div>
-              <h3 className="text-2xl font-black mb-3 font-mono">DINNER</h3>
-              <p className="text-sm mb-6 opacity-90 font-mono">
-                Evening refuel station. Register before the checkered flag drops!
-              </p>
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="text-xs opacity-70 font-mono">PIT TIME</div>
-                  <div className="text-3xl font-black font-mono bg-yellow-400 text-black px-2 py-1 rounded">8:00</div>
-                </div>
-                <button className="bg-yellow-400 bg-opacity-30 rounded-full p-3 hover:bg-opacity-50 transition-all">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div> */}
-
-            {/* Snacks Racing Panel */}
-            {/* <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50 border-2 border-purple-700 relative overflow-hidden group">
-              <div className="absolute top-2 right-2">
-                <div className="w-4 h-4 bg-green-400 rounded-full "></div>
-              </div>
-              <div className="text-sm font-black mb-2 font-mono tracking-wider">⚡ BOOST STATION</div>
-              <h3 className="text-2xl font-black mb-3 font-mono">SNACKS</h3>
-              <p className="text-sm mb-6 opacity-90 font-mono">Quick energy boost for maximum racing performance!</p>
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="text-xs opacity-70 font-mono">BOOST TIME</div>
-                  <div className="text-3xl font-black font-mono bg-yellow-400 text-black px-2 py-1 rounded">4:30</div>
-                </div>
-                <button className="bg-yellow-400 bg-opacity-30 rounded-full p-3 hover:bg-opacity-50 transition-all ">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div> */}
-
-            {/* Beverages Racing Panel */}
-            {/* <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 text-black transform hover:scale-105 hover:rotate-1 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-400/50 border-2 border-yellow-600 relative overflow-hidden group">
-              <div className="absolute top-2 right-2">
-                <div className="w-4 h-4 bg-red-600 rounded-full "></div>
-              </div>
-              <div className="text-sm font-black mb-2 font-mono tracking-wider">🥤 HYDRO STATION</div>
-              <h3 className="text-2xl font-black mb-3 font-mono">BEVERAGES</h3>
-              <p className="text-sm mb-6 opacity-90 font-mono">
-                Stay hydrated during the race! Premium racing fuel for champions.
-              </p>
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="text-xs opacity-70 font-mono">AVAILABLE</div>
-                  <div className="text-2xl font-black font-mono bg-black text-yellow-400 px-2 py-1 rounded">24/7</div>
-                </div>
-                <button className="bg-black bg-opacity-30 rounded-full p-3 hover:bg-opacity-50 transition-all ">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div> */}
-
+            
           </div>
         </div>
       </main>
